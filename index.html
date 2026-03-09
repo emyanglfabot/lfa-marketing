@@ -132,40 +132,19 @@
       justify-content: center;
       text-align: center;
       padding: 5rem 1.5rem 6rem;
-      background: linear-gradient(160deg, #e8f8f7 0%, #f0e6ff 40%, #fef3ea 70%, var(--cream) 100%);
+      background: var(--teal);
       position: relative;
       overflow: hidden;
     }
 
-    /* floating blob shapes */
-    .hero::before, .hero::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      opacity: .3;
-      animation: float 8s ease-in-out infinite;
-      filter: blur(40px);
-    }
-    .hero::before { width: 500px; height: 500px; background: var(--teal); top: -150px; left: -150px; }
-    .hero::after  { width: 400px; height: 400px; background: var(--purple); bottom: -100px; right: -100px; animation-delay: -4s; }
-
-    .hero-blob-1, .hero-blob-2 {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(50px);
-      opacity: .2;
-      animation: float 10s ease-in-out infinite;
-    }
-    .hero-blob-1 { width: 300px; height: 300px; background: var(--electric-lime); top: 30%; right: -50px; animation-delay: -2s; }
-    .hero-blob-2 { width: 250px; height: 250px; background: var(--orange); bottom: 20%; left: -80px; animation-delay: -6s; }
+    .hero-blob-1, .hero-blob-2 { display: none; }
 
     .hero-lifestyle {
       position: absolute;
       border-radius: 1.5rem;
       object-fit: cover;
-      opacity: .18;
+      opacity: .15;
       z-index: 0;
-      filter: blur(1px);
     }
     .hero-lifestyle-1 { width: 280px; height: 200px; top: 8%; right: 3%; transform: rotate(4deg); }
     .hero-lifestyle-2 { width: 240px; height: 180px; bottom: 10%; left: 3%; transform: rotate(-3deg); }
@@ -191,17 +170,15 @@
       z-index: 1;
       margin-top: 1rem;
     }
+    .hero h1 { color: var(--white); }
     .hero h1 em {
       font-style: normal;
-      background: linear-gradient(135deg, var(--orange) 0%, var(--purple) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--electric-lime);
     }
-    .hero p.subtitle {
+    .hero p.subtitle { color: rgba(255,255,255,.85); }
+    .hero .subtitle {
       margin-top: 1.4rem;
       font-size: clamp(1.05rem, 2.5vw, 1.25rem);
-      color: var(--muted);
       max-width: 560px;
       line-height: 1.7;
       position: relative;
@@ -314,38 +291,79 @@
     }
 
     /* ── FEATURES ── */
-    .features { background: var(--white); }
+    .features { background: var(--cream); }
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
     }
     .feature-card {
-      background: var(--cream);
       border-radius: 1.75rem;
       padding: 2.25rem 2rem;
       text-align: center;
       transition: transform .2s, box-shadow .2s;
-      border: 2px solid rgba(109,206,197,.2);
       position: relative;
       overflow: hidden;
     }
-    .feature-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      border-radius: 1.75rem 1.75rem 0 0;
+    .feature-card::after { display: none; }
+    .feature-card:nth-child(1) { background: var(--teal); }
+    .feature-card:nth-child(1) h3,
+    .feature-card:nth-child(1) p { color: var(--charcoal); }
+    .feature-card:nth-child(2) { background: var(--night-blue); }
+    .feature-card:nth-child(2) h3 { color: var(--white); }
+    .feature-card:nth-child(2) p { color: rgba(255,255,255,.85); }
+    .feature-card:nth-child(3) { background: var(--orange); }
+    .feature-card:nth-child(3) h3 { color: var(--white); }
+    .feature-card:nth-child(3) p { color: rgba(255,255,255,.85); }
+    .feature-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.15); }
+
+    /* ── SAFE & PRIVATE BANNER ── */
+    .safe-private {
+      background: var(--charcoal);
+      color: var(--white);
+      padding: 3.5rem 1.5rem;
     }
-    .feature-card:nth-child(1) { border-color: rgba(109,206,197,.35); }
-    .feature-card:nth-child(1)::after { background: var(--teal); }
-    .feature-card:nth-child(2) { border-color: rgba(184,78,255,.25); }
-    .feature-card:nth-child(2)::after { background: var(--purple); }
-    .feature-card:nth-child(3) { border-color: rgba(245,196,66,.3); }
-    .feature-card:nth-child(3)::after { background: var(--gold); }
-    .feature-card:nth-child(4) { border-color: rgba(212,255,0,.3); }
-    .feature-card:nth-child(4)::after { background: var(--electric-lime); }
-    .feature-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(184,78,255,.15); }
+    .safe-private-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: center;
+    }
+    .safe-private-icon {
+      font-size: 3.5rem;
+      flex-shrink: 0;
+    }
+    .safe-private-text h3 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--electric-lime);
+      margin-bottom: .5rem;
+    }
+    .safe-private-text p {
+      color: rgba(255,255,255,.85);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+    .safe-private-badges {
+      display: flex;
+      gap: .75rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .badge {
+      background: var(--teal);
+      color: var(--charcoal);
+      font-weight: 700;
+      font-size: .8rem;
+      padding: .35rem .9rem;
+      border-radius: 2rem;
+    }
     .feature-icon-img {
       width: 72px;
       height: 72px;
@@ -364,16 +382,13 @@
     .feature-card p { color: var(--muted); line-height: 1.7; font-size: .95rem; }
 
     /* ── SEE IT IN ACTION ── */
-    .app-showcase { background: linear-gradient(160deg, #f0e6ff 0%, var(--cream) 50%, #e8f8f7 100%); position: relative; overflow: hidden; }
+    .app-showcase { background: var(--purple); position: relative; overflow: hidden; color: var(--white); }
+    .app-showcase .section-label { color: var(--electric-lime); }
+    .app-showcase .section-title { color: var(--white); }
+    .app-showcase .section-sub { color: rgba(255,255,255,.8); }
+    .app-showcase .phone-label { color: var(--white); }
     .app-showcase .blob-deco-1,
-    .app-showcase .blob-deco-2 {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: .15;
-    }
-    .app-showcase .blob-deco-1 { width: 350px; height: 350px; background: var(--purple); top: -100px; right: -100px; }
-    .app-showcase .blob-deco-2 { width: 250px; height: 250px; background: var(--electric-lime); bottom: -80px; left: -60px; }
+    .app-showcase .blob-deco-2 { display: none; }
 
     .phone-gallery {
       display: flex;
@@ -425,6 +440,7 @@
 
     /* ── LIFESTYLE SECTION ── */
     .lifestyle { background: var(--white); position: relative; overflow: hidden; }
+    .lifestyle .lifestyle-overlay { background: rgba(58,54,50,.6); }
     .lifestyle-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -462,7 +478,7 @@
     }
 
     /* ── HOW IT WORKS ── */
-    .how { background: linear-gradient(135deg, #e8f8f7 0%, #f0e6ff 50%, #fef3ea 100%); }
+    .how { background: var(--gold); }
     .steps {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -482,9 +498,9 @@
       justify-content: center;
       margin: 0 auto 1rem;
     }
-    .step:nth-child(1) .step-number { background: var(--gold); box-shadow: 0 4px 14px rgba(245,196,66,.45); color: var(--charcoal); }
+    .step:nth-child(1) .step-number { background: var(--orange); box-shadow: 0 4px 14px rgba(232,90,43,.45); }
     .step:nth-child(2) .step-number { background: var(--purple); box-shadow: 0 4px 14px rgba(184,78,255,.4); }
-    .step:nth-child(3) .step-number { background: var(--electric-lime); box-shadow: 0 4px 14px rgba(212,255,0,.4); color: var(--charcoal); }
+    .step:nth-child(3) .step-number { background: var(--teal); box-shadow: 0 4px 14px rgba(109,206,197,.4); color: var(--charcoal); }
     .step-emoji { font-size: 2.5rem; margin-bottom: .75rem; display: block; }
     .step h3 {
       font-family: 'Baloo 2', cursive;
@@ -497,6 +513,7 @@
 
     /* ── TESTIMONIALS ── */
     .testimonials { background: var(--white); }
+    .testimonials .section-label { color: var(--orange); }
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -546,26 +563,7 @@
       position: relative;
       overflow: hidden;
     }
-    .cta-banner::before {
-      content: '';
-      position: absolute;
-      width: 400px; height: 400px;
-      border-radius: 50%;
-      background: var(--purple);
-      opacity: .08;
-      top: -120px; right: -120px;
-      filter: blur(40px);
-    }
-    .cta-banner::after {
-      content: '';
-      position: absolute;
-      width: 300px; height: 300px;
-      border-radius: 50%;
-      background: var(--electric-lime);
-      opacity: .06;
-      bottom: -100px; left: -100px;
-      filter: blur(40px);
-    }
+    .cta-banner::before, .cta-banner::after { display: none; }
     .cta-mascot-small {
       width: 110px;
       height: auto;
@@ -654,6 +652,9 @@
     }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+    }
     @media (max-width: 600px) {
       nav { padding: 1rem; }
       .hero-apps { gap: .75rem; }
@@ -731,8 +732,8 @@
   </section>
 
   <!-- WAVE: Hero → Features -->
-  <svg class="wave-divider" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style="background:transparent;">
-    <path fill="#FFFFFF" d="M0,40 C360,90 1080,-10 1440,40 L1440,80 L0,80 Z"/>
+  <svg class="wave-divider" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style="background:#6DCEC5;">
+    <path fill="#F5F0E1" d="M0,40 C360,90 1080,-10 1440,40 L1440,80 L0,80 Z"/>
   </svg>
 
   <!-- FEATURES -->
@@ -757,18 +758,30 @@
           <h3>Draw With Me</h3>
           <p>Create colorful art together from anywhere. Kids draw, add stickers and colors, then share their masterpiece with the people they love.</p>
         </div>
-        <div class="feature-card">
-          <span class="feature-icon-img" aria-hidden="true" style="display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:rgba(109,206,197,.15);border-radius:1.1rem;">🔒</span>
-          <h3>Safe &amp; Private</h3>
-          <p>A walled garden just for your family. No ads, no strangers, no worries — just the people you choose and the moments that matter.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAFE & PRIVATE -->
+  <section class="safe-private" aria-labelledby="safe-heading">
+    <div class="safe-private-inner">
+      <div class="safe-private-icon" aria-hidden="true">🔒</div>
+      <div class="safe-private-text">
+        <h3 id="safe-heading">Safe &amp; Private by Design</h3>
+        <p>A walled garden just for your family. No ads, no strangers, no worries — just the people you choose and the moments that matter.</p>
+        <div class="safe-private-badges">
+          <span class="badge">No ads ever</span>
+          <span class="badge">Family-only invite</span>
+          <span class="badge">No strangers</span>
+          <span class="badge">COPPA compliant</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- WAVE: Features → App Showcase -->
-  <svg class="wave-divider" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style="background:#FFFFFF;">
-    <path fill="#f0e6ff" d="M0,40 C480,0 960,80 1440,30 L1440,80 L0,80 Z"/>
+  <!-- WAVE: Safe/Private → App Showcase -->
+  <svg class="wave-divider" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style="background:#3A3632;">
+    <path fill="#B84EFF" d="M0,40 C480,0 960,80 1440,30 L1440,80 L0,80 Z"/>
   </svg>
 
   <!-- SEE IT IN ACTION -->
@@ -806,7 +819,7 @@
   </section>
 
   <!-- WAVE: App Showcase → Lifestyle -->
-  <svg class="wave-divider" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style="background:linear-gradient(160deg, #f0e6ff 0%, #e8f8f7 100%);">
+  <svg class="wave-divider" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style="background:#B84EFF;">
     <path fill="#FFFFFF" d="M0,30 C400,80 1000,0 1440,50 L1440,80 L0,80 Z"/>
   </svg>
 
@@ -847,7 +860,7 @@
 
   <!-- WAVE: Lifestyle → How It Works -->
   <svg class="wave-divider" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style="background:#FFFFFF;">
-    <path fill="#e8f8f7" d="M0,50 C320,0 720,80 1440,20 L1440,80 L0,80 Z"/>
+    <path fill="#F5C442" d="M0,50 C320,0 720,80 1440,20 L1440,80 L0,80 Z"/>
   </svg>
 
   <!-- HOW IT WORKS -->
@@ -880,7 +893,7 @@
   </section>
 
   <!-- WAVE: How → Testimonials -->
-  <svg class="wave-divider" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style="background:linear-gradient(135deg, #e8f8f7 0%, #fef3ea 100%);">
+  <svg class="wave-divider" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style="background:#F5C442;">
     <path fill="#FFFFFF" d="M0,20 C360,70 1080,10 1440,60 L1440,80 L0,80 Z"/>
   </svg>
 
