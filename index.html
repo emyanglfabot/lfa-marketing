@@ -8,13 +8,13 @@
   <meta name="keywords" content="kids app, family connection, peek-a-boo, grandparents, toddler app, video call kids, bedtime stories, children app" />
   <meta property="og:title" content="Land Far Away — Stay Close, No Matter the Distance" />
   <meta property="og:description" content="A safe, joyful app that helps little kids stay connected with the faraway people they love most." />
-  <meta property="og:image" content="assets/brand/lockup.png" />
+  <meta property="og:image" content="assets/brand/app-icon.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://landfaraway.co" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Land Far Away — Stay Close, No Matter the Distance" />
   <meta name="twitter:description" content="A safe, joyful app for kids and their faraway loved ones." />
-  <meta name="twitter:image" content="assets/brand/lockup.png" />
+  <meta name="twitter:image" content="assets/brand/app-icon.png" />
 
   <!-- Structured data for AI/search -->
   <script type="application/ld+json">
@@ -90,8 +90,9 @@
       background: var(--cream);
       position: sticky;
       top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 12px rgba(58,54,50,.08);
+      z-index: 1000;
+      box-shadow: 0 2px 0 rgba(58,54,50,.12), 0 4px 16px rgba(58,54,50,.1);
+      isolation: isolate;
     }
     .nav-logo {
       display: flex;
@@ -443,7 +444,7 @@
 
     .phone-gallery {
       display: flex;
-      gap: 2.5rem;
+      gap: 2rem;
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
@@ -451,10 +452,20 @@
       z-index: 1;
     }
     .phone-mockup {
-      width: 220px;
+      width: 180px;
       flex-shrink: 0;
       position: relative;
       transition: transform .3s;
+    }
+    .phone-mockup.phone-mockup-featured {
+      width: 300px;
+      z-index: 2;
+    }
+    .phone-mockup.phone-mockup-featured .phone-frame {
+      border-radius: 1.25rem;
+    }
+    .phone-mockup.phone-mockup-featured .phone-frame img {
+      border-radius: 0.75rem;
     }
     .phone-mockup:hover { transform: translateY(-8px) scale(1.03); }
     .phone-frame {
@@ -807,7 +818,7 @@
         <div class="feature-card">
           <img class="feature-icon-img" src="assets/brand/icon-drawwithme.png" alt="" aria-hidden="true" />
           <h3>Draw With Me</h3>
-          <p>Create colorful art together from anywhere. Kids draw, add stickers and colors, then share their masterpiece with the people they love.</p>
+          <p>AI turns family photos into personalized coloring sheets. Kids color in Grandma, Grandpa, or their favorite people — then share the finished masterpiece.</p>
         </div>
       </div>
     </div>
@@ -847,16 +858,15 @@
         <div class="phone-mockup">
           <div class="phone-frame">
             <div class="phone-notch" aria-hidden="true"></div>
-            <img src="assets/app-screens/peekaboo-game.png" alt="Land Far Away peek-a-boo game screen showing a hallway with colorful doors and surprise video" />
-          </div>
-          <p class="phone-label">Peek-a-Boo</p>
-        </div>
-        <div class="phone-mockup">
-          <div class="phone-frame">
-            <div class="phone-notch" aria-hidden="true"></div>
             <img src="assets/app-screens/good-morning-night.png" alt="Land Far Away good morning and good night screen with sun and moon split" />
           </div>
           <p class="phone-label">Good Morning / Night</p>
+        </div>
+        <div class="phone-mockup phone-mockup-featured">
+          <div class="phone-frame">
+            <img src="assets/app-screens/peekaboo-game.png" alt="Land Far Away peek-a-boo game screen showing a hallway with colorful doors and surprise video" />
+          </div>
+          <p class="phone-label">Peek-a-Boo</p>
         </div>
         <div class="phone-mockup">
           <div class="phone-frame">
