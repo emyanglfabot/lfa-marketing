@@ -458,17 +458,27 @@
     }
     .phone-mockup:hover { transform: translateY(-8px) scale(1.03); }
     .phone-frame {
-      background: transparent;
+      background: var(--charcoal);
       border-radius: 2rem;
-      padding: 0;
+      padding: 10px;
       position: relative;
+      box-shadow: 0 20px 60px rgba(58,54,50,.25);
     }
-    .phone-notch { display: none; }
+    .phone-notch {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 18px;
+      background: var(--charcoal);
+      border-radius: 0 0 0.75rem 0.75rem;
+      z-index: 2;
+    }
     .phone-frame img {
       width: 100%;
-      border-radius: 1.5rem;
+      border-radius: 1.25rem;
       display: block;
-      box-shadow: 0 20px 60px rgba(58,54,50,.25);
     }
     .phone-label {
       text-align: center;
@@ -764,10 +774,10 @@
     <div class="hero-right">
       <img class="hero-mascot-float" src="assets/brand/mascot.png" alt="The Land Far Away mascot" aria-hidden="true" />
       <div class="hero-phone hero-phone-main">
-        <img src="assets/app-screens/home-screen.png" alt="Land Far Away app home screen showing peek-a-boo, good morning/night, and draw with me activities" />
+        <img src="assets/app-screens/good-morning-night.png" alt="Land Far Away good morning and good night screen" />
       </div>
       <div class="hero-phone hero-phone-secondary">
-        <img src="assets/app-screens/peekaboo-game.png" alt="Peek-a-boo game with colorful doors" />
+        <img src="assets/app-screens/draw-active.png" alt="Drawing activity with colorful stickers" />
       </div>
     </div>
   </section>
