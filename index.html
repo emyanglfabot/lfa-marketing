@@ -138,13 +138,32 @@
       position: relative;
       overflow: hidden;
     }
-    .hero::before {
+
+    /* Full-height background photo — right half, fades out */
+    .hero-bg-photo {
+      position: absolute;
+      top: 0; right: 0;
+      width: 55%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+      mask-image: linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%);
+    }
+
+    /* Semi-transparent teal overlay over the right half */
+    .hero::after {
       content: '';
       position: absolute;
-      inset: 0;
-      background: var(--teal);
-      clip-path: ellipse(70% 90% at 100% 50%);
-      z-index: 0;
+      top: 0; right: 0;
+      width: 55%;
+      height: 100%;
+      background: rgba(109, 206, 197, 0.72);
+      mask-image: linear-gradient(to right, transparent 0%, black 15%, black 75%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 75%, transparent 100%);
+      z-index: 1;
+      pointer-events: none;
     }
 
     .hero-blob-1, .hero-blob-2,
@@ -153,7 +172,7 @@
     /* Left column */
     .hero-left {
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
     .hero-eyebrow {
       display: inline-flex;
@@ -223,22 +242,21 @@
       font-weight: 600;
     }
 
-    /* Right column — phones */
+    /* Right column — single phone */
     .hero-right {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       display: flex;
       justify-content: center;
-      align-items: flex-end;
-      gap: 1.5rem;
+      align-items: center;
       padding-top: 2rem;
     }
     .hero-phone {
       border-radius: 2.5rem;
       overflow: hidden;
-      box-shadow: 0 24px 64px rgba(58,54,50,.25);
+      box-shadow: 0 32px 80px rgba(58,54,50,.35);
       background: var(--charcoal);
-      padding: 10px;
+      padding: 12px;
       position: relative;
     }
     .hero-phone img {
@@ -246,33 +264,11 @@
       border-radius: 2rem;
       width: 100%;
     }
-    .hero-phone-main {
-      width: 190px;
-      transform: translateY(0);
-    }
-    .hero-phone-secondary {
-      width: 155px;
-      transform: translateY(30px);
-      opacity: .9;
-    }
-    .hero-mascot-float {
-      position: absolute;
-      width: 110px;
-      bottom: -10px;
-      left: -50px;
-      animation: bob 4s ease-in-out infinite;
-      filter: drop-shadow(0 8px 20px rgba(58,54,50,.2));
-      z-index: 2;
-    }
+    .hero-phone-main { width: 220px; }
+    .hero-phone-secondary,
+    .hero-mascot-float { display: none; }
 
-    /* mini app icons strip — moved below left col */
-    .hero-apps {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
+    .hero-apps { display: none; }
     .app-chip {
       display: flex;
       align-items: center;
@@ -756,6 +752,14 @@
 
   <!-- HERO -->
   <section class="hero" aria-labelledby="hero-heading">
+    <!-- Background lifestyle photo -->
+    <img
+      class="hero-bg-photo"
+      src="https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=1200"
+      alt=""
+      aria-hidden="true"
+      loading="eager"
+    />
     <div class="hero-left">
       <div class="hero-eyebrow">🏰 For families, by families</div>
       <h1 id="hero-heading">The magic of <em>being together</em>,<br>even from far away.</h1>
@@ -767,28 +771,10 @@
         </a>
         <span class="platform-note">iPhone &amp; iPad · Free</span>
       </div>
-      <div class="hero-apps" aria-label="Available activities">
-        <div class="app-chip">
-          <img src="assets/brand/icon-peekaboo.png" alt="" aria-hidden="true" />
-          Peek-a-Boo
-        </div>
-        <div class="app-chip">
-          <img src="assets/brand/icon-gmgn.png" alt="" aria-hidden="true" />
-          Good Morning / Night
-        </div>
-        <div class="app-chip">
-          <img src="assets/brand/icon-drawwithme.png" alt="" aria-hidden="true" />
-          Draw With Me
-        </div>
-      </div>
     </div>
     <div class="hero-right">
-      <img class="hero-mascot-float" src="assets/brand/mascot.png" alt="The Land Far Away mascot" aria-hidden="true" />
       <div class="hero-phone hero-phone-main">
-        <img src="assets/app-screens/good-morning-night.png" alt="Land Far Away good morning and good night screen" />
-      </div>
-      <div class="hero-phone hero-phone-secondary">
-        <img src="assets/app-screens/draw-active.png" alt="Drawing activity with colorful stickers" />
+        <img src="assets/app-screens/home-screen.png" alt="Land Far Away app home screen" />
       </div>
     </div>
   </section>
