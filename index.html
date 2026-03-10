@@ -24,7 +24,7 @@
     "name": "Land Far Away",
     "description": "A safe, joyful app that helps young children stay connected with faraway grandparents and loved ones through peek-a-boo, shared storytime, and video moments.",
     "applicationCategory": "LifestyleApplication",
-    "operatingSystem": "iOS, Android",
+    "operatingSystem": "iOS",
     "audience": {
       "@type": "PeopleAudience",
       "suggestedMinAge": 0,
@@ -83,13 +83,13 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background: rgba(245,240,225,.85);
+      background: rgba(245,240,225,.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
       z-index: 100;
-      border-bottom: 1px solid rgba(58,54,50,.08);
+      border-top: 4px solid var(--orange);
     }
     .nav-logo {
       display: flex;
@@ -207,6 +207,18 @@
     .btn-store:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(58,54,50,.35); }
     .btn-store .icon { font-size: 1.6rem; }
     .btn-store .label small { display: block; font-weight: 400; font-size: .75rem; opacity: .75; }
+    .btn-store-primary {
+      background: var(--charcoal);
+      font-size: 1.05rem;
+      padding: 1rem 2rem;
+    }
+    .platform-note {
+      display: flex;
+      align-items: center;
+      font-size: .9rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
 
     /* Right column — phones */
     .hero-right {
@@ -726,14 +738,11 @@
       <h1 id="hero-heading">The magic of <em>being together</em>,<br>even from far away.</h1>
       <p class="subtitle">Land Far Away lets little ones share peek-a-boo, storytime, and pure joy with the grandparents and loved ones they miss most — no matter the miles.</p>
       <div class="hero-buttons" id="download">
-        <a class="btn-store" href="#" aria-label="Download Land Far Away on the App Store">
+        <a class="btn-store btn-store-primary" href="#" aria-label="Download Land Far Away on the App Store">
           <span class="icon" aria-hidden="true">🍎</span>
           <span class="label"><small>Download on the</small>App Store</span>
         </a>
-        <a class="btn-store" href="#" aria-label="Get Land Far Away on Google Play">
-          <span class="icon" aria-hidden="true">▶️</span>
-          <span class="label"><small>Get it on</small>Google Play</span>
-        </a>
+        <span class="platform-note">iPhone &amp; iPad · Free</span>
       </div>
       <div class="hero-apps" aria-label="Available activities">
         <div class="app-chip">
@@ -904,7 +913,7 @@
           <span class="step-emoji" aria-hidden="true">📱</span>
           <div class="step-number" aria-hidden="true">1</div>
           <h3>Download the app</h3>
-          <p>Free on the App Store and Google Play. Set up takes just a minute — no tech skills needed.</p>
+          <p>Free on the App Store for iPhone and iPad. Set up takes just a minute — no tech skills needed.</p>
         </div>
         <div class="step">
           <span class="step-emoji" aria-hidden="true">💌</span>
@@ -978,10 +987,6 @@
         <a class="btn-store" href="#" aria-label="Download Land Far Away on the App Store">
           <span class="icon" aria-hidden="true">🍎</span>
           <span class="label"><small>Download on the</small>App Store</span>
-        </a>
-        <a class="btn-store" href="#" aria-label="Get Land Far Away on Google Play">
-          <span class="icon" aria-hidden="true">▶️</span>
-          <span class="label"><small>Get it on</small>Google Play</span>
         </a>
       </div>
     </div>
