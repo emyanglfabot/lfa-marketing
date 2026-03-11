@@ -139,7 +139,7 @@
       overflow: hidden;
     }
 
-    /* Full-height background photo — right half, fades out */
+    /* Full-height background photo — behind the teal shape */
     .hero-bg-photo {
       position: absolute;
       top: 0; right: 0;
@@ -148,20 +148,18 @@
       object-fit: cover;
       object-position: center;
       z-index: 0;
-      mask-image: linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 70%, transparent 100%);
+      clip-path: ellipse(70% 90% at 100% 50%);
     }
 
-    /* Semi-transparent teal overlay over the right half */
+    /* Semi-transparent teal overlay — blocky shape like the original */
     .hero::after {
       content: '';
       position: absolute;
       top: 0; right: 0;
       width: 55%;
       height: 100%;
-      background: rgba(109, 206, 197, 0.72);
-      mask-image: linear-gradient(to right, transparent 0%, black 15%, black 75%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 75%, transparent 100%);
+      background: rgba(109, 206, 197, 0.78);
+      clip-path: ellipse(70% 90% at 100% 50%);
       z-index: 1;
       pointer-events: none;
     }
