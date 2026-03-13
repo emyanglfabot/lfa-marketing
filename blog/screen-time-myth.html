@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Not All Screen Time Is Created Equal: The Case for Face Time — Land Far Away</title>
+  <meta name="description" content="Pediatricians agree: FaceTime with grandma is fundamentally different from watching YouTube. Here's what the research actually says." />
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal: #6DCEC5;
+      --teal-dark: #3EB5AD;
+      --orange: #E85A2B;
+      --orange-dark: #C44A20;
+      --gold: #F5C442;
+      --night-blue: #5A9DD8;
+      --cream: #F5F0E1;
+      --charcoal: #3A3632;
+      --muted: #7A7062;
+      --white: #FFFFFF;
+      --purple: #B84EFF;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--charcoal); }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--cream);
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      box-shadow: 0 2px 0 rgba(58,54,50,.12), 0 4px 16px rgba(58,54,50,.1);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      text-decoration: none;
+    }
+    .nav-logo img { height: 44px; width: auto; }
+    .nav-logo .logo-text {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+    .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-links a {
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--charcoal);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: var(--teal-dark); }
+    .nav-cta {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: .6rem 1.4rem;
+      border-radius: 2rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 3px 10px rgba(232,90,43,.35);
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(232,90,43,.45); }
+
+    /* ARTICLE HEADER */
+    .article-header {
+      text-align: center;
+      padding: 4rem 1.5rem 2.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .article-header h1 {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(1.9rem, 4.5vw, 3rem);
+      font-weight: 800;
+      color: var(--charcoal);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .article-meta {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .02em;
+    }
+
+    /* ARTICLE BODY */
+    .article-body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+    .article-body p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+    .article-body h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+    .article-body a {
+      color: var(--orange);
+      text-decoration: underline;
+      font-weight: 700;
+    }
+    .article-body a:hover { color: var(--orange-dark); }
+
+    /* DIVIDER */
+    .article-divider {
+      max-width: 720px;
+      margin: 0 auto 3rem;
+      border: none;
+      border-top: 2px solid rgba(58,54,50,.1);
+    }
+
+    /* RELATED POSTS */
+    .related-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+    }
+    .related-section h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .related-card {
+      background: var(--white);
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform .2s, box-shadow .2s;
+      text-decoration: none;
+    }
+    .related-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.1); }
+    .related-card .card-meta {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--teal-dark);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: .6rem;
+    }
+    .related-card h3 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.3;
+      margin-bottom: .6rem;
+    }
+    .related-card .card-excerpt {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 1rem;
+    }
+    .related-card .read-more {
+      font-weight: 700;
+      font-size: .9rem;
+      color: var(--orange);
+      text-decoration: none;
+    }
+    .related-card .read-more:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,.55);
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: .9rem;
+      border-top: 2px solid rgba(109,206,197,.15);
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      margin-bottom: .75rem;
+    }
+    .footer-logo img { height: 32px; width: auto; opacity: .85; }
+    .footer-logo span {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--teal);
+    }
+    footer a { color: rgba(255,255,255,.55); text-decoration: none; }
+    footer a:hover { color: var(--gold); }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin: 1rem 0; flex-wrap: wrap; }
+
+    :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 4px; }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem; }
+      .nav-logo .logo-text { display: none; }
+      .article-header { padding: 2.5rem 1.25rem 2rem; }
+      .article-body { padding: 0 1.25rem 3rem; }
+      .related-section { padding: 0 1.25rem 3.5rem; }
+      .related-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="../" aria-label="Land Far Away — home">
+      <img src="../assets/brand/app-icon.png" alt="" aria-hidden="true" />
+      <span class="logo-text">Land Far Away</span>
+    </a>
+    <div class="nav-links">
+      <a href="../">Home</a>
+      <a href="./">Blog</a>
+      <a class="nav-cta" href="../#download">Download Free</a>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <h1>Not All Screen Time Is Created Equal: The Case for Face Time</h1>
+    <p class="article-meta">March 6, 2026 &middot; 4 min read &middot; The Land Far Away Team</p>
+  </header>
+
+  <main>
+    <article class="article-body">
+
+      <p>Every parent has felt it — the low-grade guilt that comes with handing a toddler a phone. Screen time has become shorthand for a kind of failure, a sign that we've given up when we should have been doing something more intentional. But that framing misses a crucial distinction: not all screen time is the same, and the research is increasingly clear on why.</p>
+
+      <h2>What the American Academy of Pediatrics Actually Says</h2>
+
+      <p>The American Academy of Pediatrics (AAP) recommends that children under 18 months avoid screen use — with one explicit exception: video chatting. For children ages 2 to 5, they suggest limiting use to one hour per day of high-quality programming. But buried inside those guidelines is a distinction that often gets overlooked: interactive content is fundamentally different from passive consumption.</p>
+
+      <p>The AAP isn't warning parents away from screens because light emanates from them. They're cautioning against content that asks nothing of a child's brain — shows and videos that a baby can stare at without ever needing to respond, predict, or connect with another person.</p>
+
+      <h2>The Landmark Study You've Probably Never Heard Of</h2>
+
+      <p>In 2014, researchers Roseberry, Hirsh-Pasek, and Golinkoff published a study that quietly changed how developmental scientists think about video and language acquisition. Their finding was striking: toddlers who were taught new words over live video chat learned them as effectively as toddlers taught in person. Toddlers who watched the exact same lesson recorded on video did not learn them at all.</p>
+
+      <p>The difference wasn't the words. It wasn't the face. It wasn't even the warmth of a familiar caregiver. It was the back-and-forth — the real-time responsiveness of a live conversation. When the adult on screen paused and waited, adjusted their pace, smiled when the child looked away, the child's brain registered something essential: this is a real interaction, and I matter in it.</p>
+
+      <h2>Social Contingency: The Mechanism Behind the Magic</h2>
+
+      <p>Developmental scientists call this "social contingency" — the quality of a response being contingent on what the child just did. A grandparent who laughs when a baby makes a funny face, then leans in closer, then says the baby's name — that sequence activates the same neural learning pathways as a face-to-face interaction in the same room. A YouTube video cannot do this. It cannot see your child. It cannot wait.</p>
+
+      <p>This is why pediatricians have begun saying explicitly: FaceTime with grandma is a categorically different activity from watching cartoons. One is a passive experience that happens to a child. The other is a social relationship that a child participates in and, in doing so, builds language, emotional attunement, and a felt sense of being known.</p>
+
+      <h2>Peek-A-Boo and the Anticipation Loop</h2>
+
+      <p>One of the oldest games in human history turns out to be a perfect example of social contingency in action. Peek-a-boo works because babies are neurologically wired for the anticipation-and-reveal loop it creates. The hiding face generates tension; the reappearance generates delight; the repetition trains the brain to hold uncertainty and trust that something good is coming. This loop — build-up, release, reconnection — is the same structure that underlies secure attachment.</p>
+
+      <p>When a grandparent plays peek-a-boo over video, that loop is fully intact. The baby anticipates. The face disappears. The face returns. The laugh is real, and it is heard, and it lands. The miles disappear entirely.</p>
+
+      <h2>You're Not Doing It Wrong</h2>
+
+      <p>If you've opened an app, handed a phone to your toddler, and watched their face light up when a grandparent appeared on the screen — you were not taking the easy way out. You were doing something that developmental research now confirms is genuinely good for your child. You were giving them a relationship, in real time, with someone who loves them.</p>
+
+      <p>The goal was never to eliminate screens. It was to make them count. Interactive, responsive, face-to-face connection over video isn't a consolation prize for families separated by distance. For millions of children, it is how love travels.</p>
+
+    </article>
+  </main>
+
+  <hr class="article-divider" />
+
+  <section class="related-section" aria-label="Related posts">
+    <h2>Keep Reading</h2>
+    <div class="related-grid">
+
+      <article class="related-card">
+        <div class="card-meta">March 10, 2026 &middot; 5 min read</div>
+        <h3>Why Grandparents Matter More Than You Think</h3>
+        <p class="card-excerpt">Research shows grandparent involvement builds emotional resilience in children. Here's why those small, consistent moments matter more than you'd expect.</p>
+        <a class="read-more" href="grandparents-matter.html">Read more &rarr;</a>
+      </article>
+
+      <article class="related-card">
+        <div class="card-meta">February 20, 2026 &middot; 4 min read</div>
+        <h3>Why Peek-A-Boo Is the Most Important Game You Can Play</h3>
+        <p class="card-excerpt">From object permanence to secure attachment, peek-a-boo is secretly one of the most powerful developmental tools in a baby's world.</p>
+        <a class="read-more" href="peek-a-boo-science.html">Read more &rarr;</a>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">
+      <img src="../assets/brand/app-icon.png" alt="Land Far Away app icon" />
+      <span>Land Far Away</span>
+    </div>
+    <div class="footer-links">
+      <a href="../#">Privacy Policy</a>
+      <a href="../#">Terms of Service</a>
+      <a href="../#">Contact</a>
+    </div>
+    <p>&copy; 2026 Land Far Away &middot; <a href="https://landfaraway.co">landfaraway.co</a> &middot; Made with love for families everywhere</p>
+  </footer>
+
+</body>
+</html>

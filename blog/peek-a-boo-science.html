@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Peek-A-Boo Is the Most Important Game You Can Play — Land Far Away</title>
+  <meta name="description" content="From object permanence to secure attachment, peek-a-boo is secretly one of the most powerful developmental tools in a baby's world." />
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal: #6DCEC5;
+      --teal-dark: #3EB5AD;
+      --orange: #E85A2B;
+      --orange-dark: #C44A20;
+      --gold: #F5C442;
+      --night-blue: #5A9DD8;
+      --cream: #F5F0E1;
+      --charcoal: #3A3632;
+      --muted: #7A7062;
+      --white: #FFFFFF;
+      --purple: #B84EFF;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--charcoal); }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--cream);
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      box-shadow: 0 2px 0 rgba(58,54,50,.12), 0 4px 16px rgba(58,54,50,.1);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      text-decoration: none;
+    }
+    .nav-logo img { height: 44px; width: auto; }
+    .nav-logo .logo-text {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+    .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-links a {
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--charcoal);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: var(--teal-dark); }
+    .nav-cta {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: .6rem 1.4rem;
+      border-radius: 2rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 3px 10px rgba(232,90,43,.35);
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(232,90,43,.45); }
+
+    /* ARTICLE HEADER */
+    .article-header {
+      text-align: center;
+      padding: 4rem 1.5rem 2.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .article-header h1 {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(2rem, 4.5vw, 3.1rem);
+      font-weight: 800;
+      color: var(--charcoal);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .article-meta {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .02em;
+    }
+    .article-divider {
+      width: 64px;
+      height: 4px;
+      background: var(--teal);
+      border-radius: 2px;
+      margin: 1.75rem auto 0;
+    }
+
+    /* ARTICLE BODY */
+    .article-body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    .article-body p {
+      font-size: 1.08rem;
+      line-height: 1.7;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+    .article-body h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-top: 2.5rem;
+      margin-bottom: .75rem;
+      line-height: 1.3;
+    }
+    .article-body a {
+      color: var(--orange);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .article-body a:hover { text-decoration: underline; }
+    .article-body strong { font-weight: 700; }
+
+    /* CALLOUT BOX */
+    .callout {
+      background: var(--white);
+      border-left: 5px solid var(--teal);
+      border-radius: 0 1.5rem 1.5rem 0;
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,.06);
+    }
+    .callout p {
+      margin-bottom: 0;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    /* CTA BLOCK */
+    .article-cta {
+      background: var(--charcoal);
+      border-radius: 1.5rem;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .article-cta p {
+      color: rgba(255,255,255,.8);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .article-cta .cta-btn {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: .8rem 2rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(232,90,43,.4);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .article-cta .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(232,90,43,.5);
+      text-decoration: none;
+    }
+    .article-cta-heading {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .75rem;
+    }
+
+    /* RELATED POSTS */
+    .related-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+    }
+    .related-section h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .related-card {
+      background: var(--white);
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    }
+    .related-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.1); }
+    .related-card .card-meta {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--teal-dark);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: .6rem;
+    }
+    .related-card h3 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.3;
+      margin-bottom: .6rem;
+    }
+    .related-card .card-excerpt {
+      color: var(--muted);
+      font-size: .93rem;
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.1rem;
+    }
+    .related-card .read-more {
+      font-weight: 700;
+      font-size: .9rem;
+      color: var(--orange);
+      text-decoration: none;
+    }
+    .related-card .read-more:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,.55);
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: .9rem;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      margin-bottom: .75rem;
+    }
+    .footer-logo img { height: 32px; width: auto; opacity: .85; }
+    .footer-logo span {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--teal);
+    }
+    footer a { color: rgba(255,255,255,.55); text-decoration: none; }
+    footer a:hover { color: var(--gold); }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin: 1rem 0; flex-wrap: wrap; }
+
+    :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 4px; }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem; }
+      .nav-logo .logo-text { display: none; }
+      .article-header { padding: 2.5rem 1rem 2rem; }
+      .article-body { padding: 2rem 1rem 3rem; }
+      .related-section { padding: 0 1rem 3rem; }
+      .related-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="../" aria-label="Land Far Away — home">
+      <img src="../assets/brand/app-icon.png" alt="" aria-hidden="true" />
+      <span class="logo-text">Land Far Away</span>
+    </a>
+    <div class="nav-links">
+      <a href="../">Home</a>
+      <a href="./">Blog</a>
+      <a class="nav-cta" href="../#download">Download Free</a>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <h1>Why Peek-A-Boo Is the Most Important Game You Can Play</h1>
+    <p class="article-meta">February 20, 2026 &middot; 4 min read &middot; The Land Far Away Team</p>
+    <div class="article-divider"></div>
+  </header>
+
+  <main>
+    <article class="article-body">
+
+      <p>It happens in kitchens and on living room floors a hundred times a day. An adult covers their face with their hands. A baby stares, riveted. The hands come away. The adult grins. And the baby — the baby loses it completely, dissolving into the most contagious laughter in human history.</p>
+
+      <p>Peek-a-boo looks like pure silliness. It is, of course. But it's also one of the most cognitively and emotionally rich experiences a baby can have. Underneath all that giggling is some seriously impressive brain work happening at full speed.</p>
+
+      <h2>The World Doesn't Disappear. Piaget Said So.</h2>
+
+      <p>In the 1950s, Swiss psychologist Jean Piaget made a startling discovery: babies under about eight months old believe that when an object is hidden, it simply <em>ceases to exist</em>. Out of sight, genuinely out of mind — and out of reality. He called this the early absence of <strong>object permanence</strong>.</p>
+
+      <p>Peek-a-boo is basically a live seminar on object permanence. Every time that face disappears and then reappears, the baby's brain is filing away the same reassuring lesson: things that vanish come back. The world is continuous. The world is safe. That smiling face behind those hands? It's still there, even when you can't see it.</p>
+
+      <p>By around eight to twelve months, most babies have largely cracked the concept. And while there are lots of ways the world teaches it, few are as reliably delightful — or as frequent — as peek-a-boo.</p>
+
+      <h2>The Giggle Is the Science.</h2>
+
+      <p>Here's something wonderful: that baby laugh isn't just cute. It's neurologically meaningful.</p>
+
+      <p>The peek-a-boo reveal triggers a genuine <strong>dopamine response</strong> — the same reward circuitry behind adult pleasure and motivation. But there's something subtler going on too. Researchers who study humor and emotion have noted that baby laughter at the reveal follows the same basic structure as all human humor: <em>tension, then resolution</em>. The face is gone — mild alarm! — and then it's back — relief! The brain processes that resolution as a tiny burst of joy.</p>
+
+      <p>It's the same loop behind every punchline, every plot twist, every joke that lands. Babies, it turns out, are already in on it.</p>
+
+      <div class="callout">
+        <p>"The infant's laughter is not random — it maps precisely onto the moment of resolved expectation. Peek-a-boo is the world's oldest joke, and babies get it every time."</p>
+      </div>
+
+      <h2>It's Really About Being Seen.</h2>
+
+      <p>Peek-a-boo requires something deceptively demanding: <strong>sustained eye contact and emotional mirroring</strong>. You hold the baby's gaze. You read their cues. You time the reveal just right — not too fast, not too slow. And when you reappear, your expression matches their excitement.</p>
+
+      <p>Developmental psychologist Mary Ainsworth spent decades studying what she called <strong>secure attachment</strong> — the deep, foundational trust that allows children to explore the world with confidence. At the heart of secure attachment is a caregiver who is consistently present, responsive, and attuned. Peek-a-boo is attunement in its most distilled form: I see you. I go. I come back. I see you again.</p>
+
+      <p>Played hundreds of times across a baby's first year, it quietly builds one of the most important things a child can have: the unshakeable knowledge that the people who love them will always return.</p>
+
+      <h2>It Works Through a Screen, Too.</h2>
+
+      <p>Here's the part that genuinely surprised researchers: babies respond to contingent peek-a-boo over video calls almost exactly as they do in person — but not when they watch a recording of the same game.</p>
+
+      <p>The key word is <em>contingent</em>. When a grandparent on a video call times their reveal in response to the baby's expression, the baby's brain registers the responsiveness. The interaction is real. The connection is real. Studies comparing live video calls to pre-recorded playback found that babies engaged, tracked, and responded significantly more to the live version — because someone on the other end was actually watching them back.</p>
+
+      <p>Distance, it turns out, is less of a barrier than it might seem. The magic isn't in the room. It's in the attention.</p>
+
+      <h2>This Is What Land Far Away Is Built For.</h2>
+
+      <p>Land Far Away was designed with exactly this dynamic in mind. The cover. The pause. The reveal. The delighted face on the other side of the screen. Every storybook in the app is built around the same fundamental loop that makes peek-a-boo work so well: anticipation, responsiveness, and the joy of a shared moment between someone who loves a child and the child who knows it.</p>
+
+      <div class="article-cta">
+        <p class="article-cta-heading">Ready to play?</p>
+        <p>Land Far Away makes it easy to share peek-a-boo moments — and so much more — with the little ones you love, no matter how many miles are between you. Free to download, and the first peek is on us.</p>
+        <a class="cta-btn" href="../#download">Download Free &rarr;</a>
+      </div>
+
+    </article>
+
+    <section class="related-section" aria-label="Related posts">
+      <h2>Keep Reading</h2>
+      <div class="related-grid">
+
+        <article class="related-card">
+          <div class="card-meta">March 10, 2026 &middot; 5 min read</div>
+          <h3>Why Grandparents Matter More Than You Think</h3>
+          <p class="card-excerpt">Research shows grandparent involvement builds emotional resilience in children. Here's why those small, consistent moments matter more than you'd expect.</p>
+          <a class="read-more" href="grandparents-matter.html">Read more &rarr;</a>
+        </article>
+
+        <article class="related-card">
+          <div class="card-meta">February 28, 2026 &middot; 3 min read</div>
+          <h3>5 Ways to Stay Close When You Live Far Apart</h3>
+          <p class="card-excerpt">Practical, tested tips for keeping the bond strong when miles separate your family. Spoiler: it's about small rituals, not big gestures.</p>
+          <a class="read-more" href="long-distance-family-tips.html">Read more &rarr;</a>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-logo">
+      <img src="../assets/brand/app-icon.png" alt="Land Far Away app icon" />
+      <span>Land Far Away</span>
+    </div>
+    <div class="footer-links">
+      <a href="../#">Privacy Policy</a>
+      <a href="../#">Terms of Service</a>
+      <a href="../#">Contact</a>
+    </div>
+    <p>&copy; 2026 Land Far Away &middot; <a href="https://landfaraway.co">landfaraway.co</a> &middot; Made with love for families everywhere</p>
+  </footer>
+
+</body>
+</html>

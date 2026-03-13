@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Land Far Away</title>
+  <meta name="description" content="Tips, research, and stories about keeping families close across any distance. From the Land Far Away team." />
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal: #6DCEC5;
+      --teal-dark: #3EB5AD;
+      --orange: #E85A2B;
+      --orange-dark: #C44A20;
+      --gold: #F5C442;
+      --night-blue: #5A9DD8;
+      --cream: #F5F0E1;
+      --charcoal: #3A3632;
+      --muted: #7A7062;
+      --white: #FFFFFF;
+      --purple: #B84EFF;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--charcoal); }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--cream);
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      box-shadow: 0 2px 0 rgba(58,54,50,.12), 0 4px 16px rgba(58,54,50,.1);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      text-decoration: none;
+    }
+    .nav-logo img { height: 44px; width: auto; }
+    .nav-logo .logo-text {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+    .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-links a {
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--charcoal);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: var(--teal-dark); }
+    .nav-cta {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: .6rem 1.4rem;
+      border-radius: 2rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 3px 10px rgba(232,90,43,.35);
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(232,90,43,.45); }
+
+    /* HERO */
+    .blog-hero {
+      background: var(--charcoal);
+      color: var(--white);
+      text-align: center;
+      padding: 4rem 1.5rem 3.5rem;
+    }
+    .blog-hero h1 {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: .75rem;
+    }
+    .blog-hero p {
+      color: rgba(255,255,255,.75);
+      font-size: 1.1rem;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* CARDS GRID */
+    .blog-grid {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .blog-card {
+      background: var(--white);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      transition: transform .2s, box-shadow .2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.1); }
+    .blog-card .card-meta {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--teal-dark);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: .75rem;
+    }
+    .blog-card h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.3;
+      margin-bottom: .75rem;
+    }
+    .blog-card h2 a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .blog-card h2 a:hover { color: var(--orange); }
+    .blog-card .card-excerpt {
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 1.25rem;
+    }
+    .blog-card .read-more {
+      font-weight: 700;
+      font-size: .9rem;
+      color: var(--orange);
+      text-decoration: none;
+    }
+    .blog-card .read-more:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,.55);
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: .9rem;
+      border-top: 2px solid rgba(212,255,0,.15);
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      margin-bottom: .75rem;
+    }
+    .footer-logo img { height: 32px; width: auto; opacity: .85; }
+    .footer-logo span {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--teal);
+    }
+    footer a { color: rgba(255,255,255,.55); text-decoration: none; }
+    footer a:hover { color: var(--gold); }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin: 1rem 0; flex-wrap: wrap; }
+
+    :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 4px; }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem; }
+      .blog-grid { grid-template-columns: 1fr; padding: 2rem 1rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="../" aria-label="Land Far Away — home">
+      <img src="../assets/brand/app-icon.png" alt="" aria-hidden="true" />
+      <span class="logo-text">Land Far Away</span>
+    </a>
+    <div class="nav-links">
+      <a href="../">Home</a>
+      <a class="nav-cta" href="../#download">Download Free</a>
+    </div>
+  </nav>
+
+  <section class="blog-hero">
+    <h1>From the Blog</h1>
+    <p>Tips, research, and stories about keeping families close — no matter the miles.</p>
+  </section>
+
+  <div class="blog-grid">
+
+    <article class="blog-card">
+      <div class="card-meta">March 10, 2026 &middot; 5 min read</div>
+      <h2><a href="grandparents-matter.html">Why Grandparents Matter More Than You Think</a></h2>
+      <p class="card-excerpt">Research shows grandparent involvement builds emotional resilience in children. Here's why those small, consistent moments matter more than you'd expect.</p>
+      <a class="read-more" href="grandparents-matter.html">Read more &rarr;</a>
+    </article>
+
+    <article class="blog-card">
+      <div class="card-meta">March 6, 2026 &middot; 4 min read</div>
+      <h2><a href="screen-time-myth.html">Not All Screen Time Is Created Equal: The Case for Face Time</a></h2>
+      <p class="card-excerpt">Pediatricians agree: FaceTime with grandma is fundamentally different from watching YouTube. Here's what the research actually says.</p>
+      <a class="read-more" href="screen-time-myth.html">Read more &rarr;</a>
+    </article>
+
+    <article class="blog-card">
+      <div class="card-meta">February 28, 2026 &middot; 3 min read</div>
+      <h2><a href="long-distance-family-tips.html">5 Ways to Stay Close When You Live Far Apart</a></h2>
+      <p class="card-excerpt">Practical, tested tips for keeping the bond strong when miles separate your family. Spoiler: it's about small rituals, not big gestures.</p>
+      <a class="read-more" href="long-distance-family-tips.html">Read more &rarr;</a>
+    </article>
+
+    <article class="blog-card">
+      <div class="card-meta">February 20, 2026 &middot; 4 min read</div>
+      <h2><a href="peek-a-boo-science.html">Why Peek-A-Boo Is the Most Important Game You Can Play</a></h2>
+      <p class="card-excerpt">From object permanence to secure attachment, peek-a-boo is secretly one of the most powerful developmental tools in a baby's world.</p>
+      <a class="read-more" href="peek-a-boo-science.html">Read more &rarr;</a>
+    </article>
+
+  </div>
+
+  <footer>
+    <div class="footer-logo">
+      <img src="../assets/brand/app-icon.png" alt="Land Far Away app icon" />
+      <span>Land Far Away</span>
+    </div>
+    <div class="footer-links">
+      <a href="../#">Privacy Policy</a>
+      <a href="../#">Terms of Service</a>
+      <a href="../#">Contact</a>
+    </div>
+    <p>&copy; 2026 Land Far Away &middot; <a href="https://landfaraway.co">landfaraway.co</a> &middot; Made with love for families everywhere</p>
+  </footer>
+
+</body>
+</html>
