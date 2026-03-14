@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In — Land Far Away Contributors</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #6DCEC5;
+      --teal-dark: #3EB5AD;
+      --orange: #E85A2B;
+      --orange-dark: #C44A20;
+      --gold: #F5C442;
+      --charcoal: #3A3632;
+      --cream: #F5F0E1;
+      --muted: #7A7062;
+      --white: #fff;
+      --red: #E53E3E;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px rgba(58,54,50,0.10);
+      max-width: 440px;
+      width: 100%;
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .logo {
+      height: 48px;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+
+    .body-text {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+
+    .body-text strong {
+      color: var(--charcoal);
+      font-weight: 700;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 0.85rem 1.25rem;
+      border: 2px solid #ddd;
+      border-radius: 0.75rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 1rem;
+    }
+
+    .input-field:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(109,206,197,0.25);
+    }
+
+    .code-wrap {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-wrap input {
+      width: 48px;
+      height: 56px;
+      border: 2px solid #ddd;
+      border-radius: 0.75rem;
+      text-align: center;
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.2s;
+      -moz-appearance: textfield;
+    }
+
+    .code-wrap input::-webkit-outer-spin-button,
+    .code-wrap input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .code-wrap input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(109,206,197,0.25);
+    }
+
+    .code-wrap.shake {
+      animation: shake 0.4s ease-in-out;
+    }
+
+    .code-wrap.shake input {
+      border-color: var(--red);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.85rem 2.5rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      width: 100%;
+    }
+
+    .btn:hover { background: var(--orange-dark); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--teal-dark);
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+    }
+
+    .back-link:hover { text-decoration: underline; }
+
+    .error-msg {
+      color: var(--red);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 500px) {
+      .card { padding: 2rem 1.25rem; border-radius: 1.5rem; }
+      .code-wrap input { width: 42px; height: 50px; font-size: 1.25rem; }
+      h1 { font-size: 1.35rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- Step 1: Email -->
+  <div id="email-state">
+    <img src="/lockup.png" alt="Land Far Away" class="logo">
+    <h1>Welcome back!</h1>
+    <p class="body-text">Enter your email to log in.</p>
+
+    <div id="email-error" class="error-msg hidden"></div>
+
+    <input type="email" class="input-field" id="email-input" placeholder="you@example.com" autocomplete="email">
+    <button class="btn" id="send-btn">Send Code</button>
+  </div>
+
+  <!-- Step 2: Code -->
+  <div id="code-state" class="hidden">
+    <img src="/lockup.png" alt="Land Far Away" class="logo">
+    <h1>Check your email</h1>
+    <p class="body-text">Enter the 6-digit code we sent to <strong id="display-email"></strong></p>
+
+    <div id="code-error" class="error-msg hidden"></div>
+
+    <div class="code-wrap" id="code-wrap">
+      <input type="number" min="0" max="9" inputmode="numeric" aria-label="Digit 1" data-idx="0">
+      <input type="number" min="0" max="9" inputmode="numeric" aria-label="Digit 2" data-idx="1">
+      <input type="number" min="0" max="9" inputmode="numeric" aria-label="Digit 3" data-idx="2">
+      <input type="number" min="0" max="9" inputmode="numeric" aria-label="Digit 4" data-idx="3">
+      <input type="number" min="0" max="9" inputmode="numeric" aria-label="Digit 5" data-idx="4">
+      <input type="number" min="0" max="9" inputmode="numeric" aria-label="Digit 6" data-idx="5">
+    </div>
+
+    <button class="btn" id="verify-btn" disabled>Verify Code</button>
+    <button class="back-link" id="back-btn">← Use a different email</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const API = 'https://api.landfaraway.co';
+
+  // If already logged in, go to dashboard
+  if (localStorage.getItem('contributorToken')) {
+    window.location.href = '/contribute/';
+    return;
+  }
+
+  const emailState = document.getElementById('email-state');
+  const codeState = document.getElementById('code-state');
+  const emailInput = document.getElementById('email-input');
+  const sendBtn = document.getElementById('send-btn');
+  const emailError = document.getElementById('email-error');
+  const displayEmail = document.getElementById('display-email');
+  const codeWrap = document.getElementById('code-wrap');
+  const inputs = codeWrap.querySelectorAll('input');
+  const verifyBtn = document.getElementById('verify-btn');
+  const codeError = document.getElementById('code-error');
+  const backBtn = document.getElementById('back-btn');
+
+  let userEmail = '';
+
+  function getCode() {
+    return Array.from(inputs).map(i => i.value).join('');
+  }
+
+  function updateVerifyBtn() {
+    verifyBtn.disabled = getCode().length < 6;
+  }
+
+  // Send code
+  sendBtn.addEventListener('click', async function() {
+    const email = emailInput.value.trim();
+    if (!email) return;
+
+    sendBtn.disabled = true;
+    sendBtn.innerHTML = '<span class="spinner"></span>';
+    emailError.classList.add('hidden');
+
+    try {
+      const res = await fetch(API + '/contributors/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      if (res.status === 403) {
+        emailError.textContent = "We don't have a contributor account for that email. Check your invite link or contact the family.";
+        emailError.classList.remove('hidden');
+        sendBtn.textContent = 'Send Code';
+        sendBtn.disabled = false;
+        return;
+      }
+
+      if (!res.ok) {
+        emailError.textContent = 'Something went wrong — please try again.';
+        emailError.classList.remove('hidden');
+        sendBtn.textContent = 'Send Code';
+        sendBtn.disabled = false;
+        return;
+      }
+
+      userEmail = email;
+      displayEmail.textContent = email;
+      emailState.classList.add('hidden');
+      codeState.classList.remove('hidden');
+      inputs[0].focus();
+    } catch (e) {
+      emailError.textContent = 'Connection error — please try again.';
+      emailError.classList.remove('hidden');
+      sendBtn.textContent = 'Send Code';
+      sendBtn.disabled = false;
+    }
+  });
+
+  emailInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') sendBtn.click();
+  });
+
+  // Code input behavior
+  inputs.forEach((inp, idx) => {
+    inp.addEventListener('input', function() {
+      const val = this.value;
+      if (val.length > 1) this.value = val.slice(-1);
+      if (this.value && idx < 5) inputs[idx + 1].focus();
+      updateVerifyBtn();
+    });
+
+    inp.addEventListener('keydown', function(e) {
+      if (e.key === 'Backspace' && !this.value && idx > 0) {
+        inputs[idx - 1].focus();
+      }
+    });
+
+    inp.addEventListener('paste', function(e) {
+      e.preventDefault();
+      const pasted = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+      pasted.split('').forEach((ch, i) => {
+        if (inputs[i]) inputs[i].value = ch;
+      });
+      const focusIdx = Math.min(pasted.length, 5);
+      inputs[focusIdx].focus();
+      updateVerifyBtn();
+    });
+  });
+
+  // Verify
+  verifyBtn.addEventListener('click', async function() {
+    const code = getCode();
+    if (code.length < 6) return;
+
+    verifyBtn.disabled = true;
+    verifyBtn.innerHTML = '<span class="spinner"></span>';
+    codeError.classList.add('hidden');
+    codeWrap.classList.remove('shake');
+
+    try {
+      const res = await fetch(API + '/contributors/auth/verify-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: userEmail, code })
+      });
+
+      if (!res.ok) {
+        codeWrap.classList.add('shake');
+        codeError.textContent = 'Incorrect code — try again';
+        codeError.classList.remove('hidden');
+        verifyBtn.textContent = 'Verify Code';
+        verifyBtn.disabled = false;
+        inputs.forEach(i => i.value = '');
+        inputs[0].focus();
+        setTimeout(() => codeWrap.classList.remove('shake'), 500);
+        return;
+      }
+
+      const data = await res.json();
+      localStorage.setItem('contributorToken', data.token);
+      localStorage.setItem('contributorEmail', data.email || userEmail);
+      window.location.href = '/contribute/';
+    } catch (e) {
+      codeError.textContent = 'Connection error — please try again';
+      codeError.classList.remove('hidden');
+      verifyBtn.textContent = 'Verify Code';
+      verifyBtn.disabled = false;
+    }
+  });
+
+  // Back
+  backBtn.addEventListener('click', function() {
+    codeState.classList.add('hidden');
+    emailState.classList.remove('hidden');
+    sendBtn.textContent = 'Send Code';
+    sendBtn.disabled = false;
+    inputs.forEach(i => i.value = '');
+    codeError.classList.add('hidden');
+    emailInput.focus();
+  });
+})();
+</script>
+</body>
+</html>

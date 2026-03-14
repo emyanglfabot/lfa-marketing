@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're Invited! — Land Far Away</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #6DCEC5;
+      --teal-dark: #3EB5AD;
+      --orange: #E85A2B;
+      --orange-dark: #C44A20;
+      --gold: #F5C442;
+      --charcoal: #3A3632;
+      --cream: #F5F0E1;
+      --muted: #7A7062;
+      --white: #fff;
+      --red: #E53E3E;
+      --green: #38A169;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px rgba(58,54,50,0.10);
+      max-width: 440px;
+      width: 100%;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: visible;
+    }
+
+    .mascot {
+      width: 100px;
+      position: absolute;
+      top: -48px;
+      right: -20px;
+      transform: rotate(12deg);
+      pointer-events: none;
+    }
+
+    .logo {
+      height: 48px;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 1.75rem;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+
+    .body-text {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+
+    .body-text strong {
+      color: var(--charcoal);
+      font-weight: 700;
+    }
+
+    /* Code input */
+    .code-wrap {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-wrap input {
+      width: 48px;
+      height: 56px;
+      border: 2px solid #ddd;
+      border-radius: 0.75rem;
+      text-align: center;
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.2s;
+      -moz-appearance: textfield;
+    }
+
+    .code-wrap input::-webkit-outer-spin-button,
+    .code-wrap input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .code-wrap input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(109,206,197,0.25);
+    }
+
+    .code-wrap.shake {
+      animation: shake 0.4s ease-in-out;
+    }
+
+    .code-wrap.shake input {
+      border-color: var(--red);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.85rem 2.5rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      width: 100%;
+    }
+
+    .btn:hover { background: var(--orange-dark); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .resend {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--teal-dark);
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+    }
+
+    .resend:hover { text-decoration: underline; }
+    .resend:disabled { opacity: 0.5; cursor: not-allowed; text-decoration: none; }
+
+    .error-msg {
+      color: var(--red);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Error page state */
+    .error-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .error-body {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    #loading-state .spinner {
+      width: 32px;
+      height: 32px;
+      border-color: rgba(109,206,197,0.3);
+      border-top-color: var(--teal);
+      margin-bottom: 1rem;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 500px) {
+      .card { padding: 2rem 1.25rem; border-radius: 1.5rem; }
+      .mascot { width: 72px; top: -36px; right: -10px; }
+      .code-wrap input { width: 42px; height: 50px; font-size: 1.25rem; }
+      h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <img src="/mascot.png" alt="" class="mascot" aria-hidden="true">
+
+  <!-- Loading -->
+  <div id="loading-state">
+    <img src="/lockup.png" alt="Land Far Away" class="logo">
+    <div class="spinner"></div>
+    <p class="body-text">Validating your invite…</p>
+  </div>
+
+  <!-- Verify code -->
+  <div id="verify-state" class="hidden">
+    <img src="/lockup.png" alt="Land Far Away" class="logo">
+    <h1>You've been invited! 🎉</h1>
+    <p class="body-text">We've sent a 6-digit verification code to <strong id="masked-email"></strong>. Enter it below to get started.</p>
+
+    <div id="code-error" class="error-msg hidden"></div>
+
+    <div class="code-wrap" id="code-wrap">
+      <input type="number" min="0" max="9" inputmode="numeric" aria-label="Digit 1" data-idx="0">
+      <input type="number" min="0" max="9" inputmode="numeric" aria-label="Digit 2" data-idx="1">
+      <input type="number" min="0" max="9" inputmode="numeric" aria-label="Digit 3" data-idx="2">
+      <input type="number" min="0" max="9" inputmode="numeric" aria-label="Digit 4" data-idx="3">
+      <input type="number" min="0" max="9" inputmode="numeric" aria-label="Digit 5" data-idx="4">
+      <input type="number" min="0" max="9" inputmode="numeric" aria-label="Digit 6" data-idx="5">
+    </div>
+
+    <button class="btn" id="verify-btn" disabled>Verify Code</button>
+    <button class="resend" id="resend-btn">Resend code</button>
+  </div>
+
+  <!-- Error -->
+  <div id="error-state" class="hidden">
+    <img src="/lockup.png" alt="Land Far Away" class="logo">
+    <div class="error-icon">😔</div>
+    <h1>Hmm, something went wrong</h1>
+    <p class="error-body" id="error-body"></p>
+  </div>
+</div>
+
+<script>
+(function() {
+  const API = 'https://api.landfaraway.co';
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+
+  const loadingEl = document.getElementById('loading-state');
+  const verifyEl = document.getElementById('verify-state');
+  const errorEl = document.getElementById('error-state');
+  const maskedEmailEl = document.getElementById('masked-email');
+  const codeWrap = document.getElementById('code-wrap');
+  const inputs = codeWrap.querySelectorAll('input');
+  const verifyBtn = document.getElementById('verify-btn');
+  const resendBtn = document.getElementById('resend-btn');
+  const codeError = document.getElementById('code-error');
+  const errorBody = document.getElementById('error-body');
+
+  function show(el) {
+    [loadingEl, verifyEl, errorEl].forEach(e => e.classList.add('hidden'));
+    el.classList.remove('hidden');
+  }
+
+  function showError(msg) {
+    errorBody.textContent = msg;
+    show(errorEl);
+  }
+
+  function getCode() {
+    return Array.from(inputs).map(i => i.value).join('');
+  }
+
+  function updateVerifyBtn() {
+    verifyBtn.disabled = getCode().length < 6;
+  }
+
+  // No token → redirect to dashboard
+  if (!token) {
+    window.location.href = '/contribute/';
+    return;
+  }
+
+  // Accept invite
+  async function acceptInvite() {
+    try {
+      const res = await fetch(API + '/contributors/auth/accept-invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token })
+      });
+
+      if (!res.ok) {
+        showError("This invite link has expired or already been used. Ask the family to send you a new one.");
+        return;
+      }
+
+      const data = await res.json();
+      maskedEmailEl.textContent = data.email;
+      show(verifyEl);
+      inputs[0].focus();
+    } catch (e) {
+      showError("Something went wrong connecting to our servers. Please try again later.");
+    }
+  }
+
+  acceptInvite();
+
+  // Code input behavior
+  inputs.forEach((inp, idx) => {
+    inp.addEventListener('input', function() {
+      const val = this.value;
+      if (val.length > 1) this.value = val.slice(-1);
+      if (this.value && idx < 5) inputs[idx + 1].focus();
+      updateVerifyBtn();
+    });
+
+    inp.addEventListener('keydown', function(e) {
+      if (e.key === 'Backspace' && !this.value && idx > 0) {
+        inputs[idx - 1].focus();
+      }
+    });
+
+    // Paste support
+    inp.addEventListener('paste', function(e) {
+      e.preventDefault();
+      const pasted = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+      pasted.split('').forEach((ch, i) => {
+        if (inputs[i]) inputs[i].value = ch;
+      });
+      const focusIdx = Math.min(pasted.length, 5);
+      inputs[focusIdx].focus();
+      updateVerifyBtn();
+    });
+  });
+
+  // Verify
+  async function verifyCode() {
+    const code = getCode();
+    if (code.length < 6) return;
+
+    verifyBtn.disabled = true;
+    verifyBtn.innerHTML = '<span class="spinner"></span>';
+    codeError.classList.add('hidden');
+    codeWrap.classList.remove('shake');
+
+    try {
+      const res = await fetch(API + '/contributors/auth/verify-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, code })
+      });
+
+      if (!res.ok) {
+        codeWrap.classList.add('shake');
+        codeError.textContent = 'Incorrect code — try again';
+        codeError.classList.remove('hidden');
+        verifyBtn.textContent = 'Verify Code';
+        verifyBtn.disabled = false;
+        inputs.forEach(i => i.value = '');
+        inputs[0].focus();
+        setTimeout(() => codeWrap.classList.remove('shake'), 500);
+        return;
+      }
+
+      const data = await res.json();
+      localStorage.setItem('contributorToken', data.token);
+      localStorage.setItem('contributorEmail', data.email || '');
+      window.location.href = '/contribute/';
+    } catch (e) {
+      codeError.textContent = 'Connection error — please try again';
+      codeError.classList.remove('hidden');
+      verifyBtn.textContent = 'Verify Code';
+      verifyBtn.disabled = false;
+    }
+  }
+
+  verifyBtn.addEventListener('click', verifyCode);
+
+  // Resend
+  resendBtn.addEventListener('click', async function() {
+    resendBtn.disabled = true;
+    resendBtn.textContent = 'Sending…';
+    try {
+      await fetch(API + '/contributors/auth/accept-invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token })
+      });
+      resendBtn.textContent = 'Code sent!';
+      setTimeout(() => {
+        resendBtn.textContent = 'Resend code';
+        resendBtn.disabled = false;
+      }, 3000);
+    } catch (e) {
+      resendBtn.textContent = 'Resend code';
+      resendBtn.disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>
