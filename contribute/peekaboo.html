@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peek-a-Boo — Land Far Away Contributor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal: #6DCEC5;
+      --teal-dark: #3EB5AD;
+      --orange: #E85A2B;
+      --orange-dark: #C44A20;
+      --gold: #F5C442;
+      --charcoal: #3A3632;
+      --cream: #F5F0E1;
+      --muted: #7A7062;
+      --white: #fff;
+      --red: #E53E3E;
+      --green: #38A169;
+      --card-bg: #ffffff;
+      --border: #e8e0d8;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--charcoal); min-height: 100vh; }
+
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; background: var(--white); border-bottom: 2px solid var(--teal); }
+    .nav-brand { display: flex; align-items: center; text-decoration: none; }
+    .nav-brand img { height: 40px; }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-user { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+    .btn-logout { background: none; border: 1px solid var(--border); border-radius: 2rem; padding: 0.35rem 1rem; font-size: 0.8rem; cursor: pointer; color: var(--charcoal); font-family: inherit; font-weight: 600; transition: background 0.15s; }
+    .btn-logout:hover { background: var(--cream); }
+    .back-link { font-size: 0.9rem; color: var(--teal-dark); text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; margin-bottom: 1rem; font-weight: 600; }
+    .back-link:hover { text-decoration: underline; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 1.5rem; }
+    h1 { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.5rem; color: var(--charcoal); margin-bottom: 0.25rem; }
+    h2 { font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 1.15rem; color: var(--charcoal); margin-bottom: 0.75rem; }
+
+    /* ── Hero ────────────────────────────────────── */
+    .hero { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+    .hero-icon-wrap { width: 120px; height: 120px; border-radius: 24px; background: var(--teal); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .hero-icon-wrap img { width: 80px; height: 80px; object-fit: contain; }
+    .hero-desc { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+    /* ── How-it-works ────────────────────────────── */
+    .how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+    .how-card { background: var(--card-bg); border: 1px solid var(--border); border-top: 3px solid var(--teal); border-radius: 16px; padding: 1.25rem; }
+    .how-card h3 { font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem; color: var(--teal-dark); }
+    .gif-placeholder { background: #eee; border-radius: 12px; min-height: 160px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; color: var(--muted); margin-bottom: 0.75rem; font-size: 0.85rem; }
+    .gif-placeholder .play-icon { font-size: 2rem; }
+    .how-card ul { padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.7; color: var(--muted); }
+    .how-card p { font-size: 0.9rem; line-height: 1.6; color: var(--muted); }
+
+    /* ── Upload ──────────────────────────────────── */
+    .upload-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; text-align: center; }
+    .upload-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+    .btn-upload { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--orange); color: var(--white); border: none; border-radius: 2rem; padding: 0.65rem 1.5rem; font-size: 0.95rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+    .btn-upload:hover { background: var(--orange-dark); }
+    .btn-upload:disabled { opacity: 0.5; cursor: not-allowed; }
+    .progress-wrap { display: none; margin-top: 0.75rem; }
+    .progress-bar { width: 100%; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--teal); width: 0%; transition: width 0.3s; }
+    .status-msg { font-size: 0.85rem; margin-top: 0.5rem; color: var(--muted); }
+    .status-msg.error { color: var(--red); }
+    .status-msg.success { color: var(--green); }
+    input[type="file"] { display: none; }
+
+    /* ── My Uploads ──────────────────────────────── */
+    .my-uploads { display: flex; flex-direction: column; gap: 0.75rem; }
+    .upload-item { display: flex; align-items: center; gap: 1rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 0.75rem 1rem; }
+    .upload-thumb { width: 44px; height: 44px; border-radius: 8px; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; overflow: hidden; }
+    .upload-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .upload-info { flex: 1; min-width: 0; }
+    .upload-name { font-weight: 700; font-size: 0.9rem; }
+    .upload-date { font-size: 0.78rem; color: var(--muted); }
+    .badge { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 10px; text-transform: uppercase; }
+    .badge-pending { background: #fef3cd; color: #856404; }
+    .badge-approved { background: #d4f5f0; color: #0d6e5e; }
+    .btn-delete { background: none; border: 1px solid var(--red); color: var(--red); border-radius: 2rem; padding: 0.3rem 0.7rem; font-size: 0.75rem; cursor: pointer; font-family: inherit; font-weight: 600; flex-shrink: 0; transition: all 0.15s; }
+    .btn-delete:hover { background: var(--red); color: var(--white); }
+    .empty-state { text-align: center; color: var(--muted); padding: 2rem; font-size: 0.95rem; }
+
+    .kid-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .kid-tab { padding: 0.4rem 1rem; border-radius: 2rem; border: 2px solid var(--teal); background: var(--white); cursor: pointer; font-family: inherit; font-size: 0.9rem; font-weight: 600; color: var(--teal-dark); transition: all 0.15s; }
+    .kid-tab.active { background: var(--teal); color: var(--white); border-color: var(--teal); }
+    .kid-tab:hover:not(.active) { background: #e0f5f3; }
+
+    @media (max-width: 700px) {
+      .how-grid { grid-template-columns: 1fr; }
+      .hero-icon-wrap { width: 90px; height: 90px; }
+      .hero-icon-wrap img { width: 60px; height: 60px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-brand" href="/contribute/"><img src="/assets/brand/app-icon.png" alt="Land Far Away" style="height:44px;width:44px;border-radius:12px;" /></a>
+    <div class="nav-right">
+      <span class="nav-user" id="navUser"></span>
+      <button class="btn-logout" id="btnLogout">Log out</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <a class="back-link" href="/contribute/">&larr; Back to Dashboard</a>
+
+    <div class="hero">
+      <div class="hero-icon-wrap"><img src="/peekaboo_icon.png" alt="Peek-a-Boo" /></div>
+      <h1>Peek-a-Boo</h1>
+    </div>
+    <p class="hero-desc">Record a short peek-a-boo video for the little one — they'll love seeing familiar faces pop up!</p>
+
+    <div class="kid-tabs" id="kidTabs"></div>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <h3>How to create your video</h3>
+        <div class="gif-placeholder">
+          <span class="play-icon">▶</span>
+          <span>Tutorial coming soon</span>
+        </div>
+        <ul>
+          <li>Hold your phone in portrait mode</li>
+          <li>Start with your face hidden, then reveal with a big "Peek-a-Boo!"</li>
+          <li>Keep it under 15 seconds for the best experience</li>
+        </ul>
+      </div>
+      <div class="how-card">
+        <h3>How it looks in the app</h3>
+        <div class="gif-placeholder">
+          <span class="play-icon">▶</span>
+          <span>Tutorial coming soon</span>
+        </div>
+        <p>Your video will appear as a surprise peek-a-boo moment during playtime. The child taps the screen and your face pops up!</p>
+      </div>
+    </div>
+
+    <div class="upload-card">
+      <h2>Upload Video</h2>
+      <div class="upload-btns">
+        <button class="btn-upload" id="btnUpload" onclick="document.getElementById('fileInput').click()">🎥 Upload Video</button>
+      </div>
+      <input type="file" id="fileInput" accept="video/*" />
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <div class="status-msg" id="statusMsg"></div>
+    </div>
+
+    <h2>My Peek-a-Boo Uploads</h2>
+    <div class="my-uploads" id="myUploads">
+      <div class="empty-state">Loading…</div>
+    </div>
+  </div>
+
+<script>
+const API = 'https://api.landfaraway.co';
+const GAME_SLUG = 'peekaboo';
+const token = localStorage.getItem('contributorToken');
+if (!token) { location.href = '/contribute/login.html'; }
+const headers = { Authorization: `Bearer ${token}` };
+
+let children = [];
+let activeChildId = localStorage.getItem('activeChildId');
+
+async function init() {
+  try {
+    const res = await fetch(`${API}/contributors/me`, { headers });
+    if (!res.ok) { localStorage.removeItem('contributorToken'); location.href = '/contribute/login.html'; return; }
+    const data = await res.json();
+    document.getElementById('navUser').textContent = data.contributor.name || data.contributor.email;
+    children = data.children || [];
+    if (children.length && (!activeChildId || !children.find(c => c.id === activeChildId))) {
+      activeChildId = children[0].id;
+      localStorage.setItem('activeChildId', activeChildId);
+    }
+    renderKidTabs();
+    loadMyUploads();
+  } catch (e) { console.error(e); }
+}
+
+function renderKidTabs() {
+  const el = document.getElementById('kidTabs');
+  el.innerHTML = '';
+  children.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'kid-tab' + (c.id === activeChildId ? ' active' : '');
+    btn.textContent = c.name;
+    btn.onclick = () => { activeChildId = c.id; localStorage.setItem('activeChildId', c.id); renderKidTabs(); loadMyUploads(); };
+    el.appendChild(btn);
+  });
+}
+
+document.getElementById('fileInput').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file || !activeChildId) return;
+  const form = new FormData();
+  form.append('file', file);
+  form.append('gameSlug', GAME_SLUG);
+  const btnUpload = document.getElementById('btnUpload');
+  const progressWrap = document.getElementById('progressWrap');
+  const progressFill = document.getElementById('progressFill');
+  const statusMsg = document.getElementById('statusMsg');
+  btnUpload.disabled = true;
+  progressWrap.style.display = 'block';
+  progressFill.style.width = '0%';
+  statusMsg.textContent = 'Uploading…';
+  statusMsg.className = 'status-msg';
+  try {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `${API}/contributors/children/${activeChildId}/media`);
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+    xhr.upload.onprogress = (ev) => { if (ev.lengthComputable) progressFill.style.width = Math.round((ev.loaded / ev.total) * 100) + '%'; };
+    await new Promise((resolve, reject) => {
+      xhr.onload = () => { if (xhr.status >= 200 && xhr.status < 300) resolve(); else reject(new Error(xhr.responseText)); };
+      xhr.onerror = () => reject(new Error('Network error'));
+      xhr.send(form);
+    });
+    statusMsg.textContent = 'Upload complete!';
+    statusMsg.className = 'status-msg success';
+    loadMyUploads();
+  } catch (err) {
+    statusMsg.textContent = 'Upload failed. Please try again.';
+    statusMsg.className = 'status-msg error';
+  } finally {
+    btnUpload.disabled = false;
+    e.target.value = '';
+  }
+});
+
+async function loadMyUploads() {
+  const el = document.getElementById('myUploads');
+  if (!activeChildId) { el.innerHTML = '<div class="empty-state">Select a child above.</div>'; return; }
+  el.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    const res = await fetch(`${API}/contributors/me/media`, { headers });
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    const items = (data.media || []).filter(m => m.childId === activeChildId && m.gameSlug === GAME_SLUG);
+    if (!items.length) { el.innerHTML = '<div class="empty-state">Nothing uploaded yet for this activity.</div>'; return; }
+    el.innerHTML = '';
+    items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    items.forEach(m => {
+      const div = document.createElement('div');
+      div.className = 'upload-item';
+      const statusClass = m.status === 'APPROVED' ? 'badge-approved' : 'badge-pending';
+      const statusLabel = m.status === 'APPROVED' ? 'Approved' : 'Pending';
+      const date = new Date(m.createdAt).toLocaleDateString();
+      div.innerHTML = `
+        <div class="upload-thumb">${m.thumbnailUrl ? `<img src="${m.thumbnailUrl}" alt="">` : '🫣'}</div>
+        <div class="upload-info">
+          <div class="upload-name">${m.displayName || 'Peek-a-Boo'} <span class="badge ${statusClass}">${statusLabel}</span></div>
+          <div class="upload-date">${date}</div>
+        </div>
+        <button class="btn-delete" data-id="${m.id}">Delete</button>
+      `;
+      div.querySelector('.btn-delete').onclick = () => deleteMedia(m.id, div);
+      el.appendChild(div);
+    });
+  } catch (e) { el.innerHTML = '<div class="empty-state">Could not load uploads.</div>'; }
+}
+
+async function deleteMedia(id, el) {
+  if (!confirm('Delete this upload?')) return;
+  try {
+    const res = await fetch(`${API}/contributors/me/media/${id}`, { method: 'DELETE', headers });
+    if (res.ok) el.remove();
+    else alert('Failed to delete.');
+  } catch (e) { alert('Failed to delete.'); }
+}
+
+document.getElementById('btnLogout').onclick = () => {
+  localStorage.removeItem('contributorToken');
+  localStorage.removeItem('activeChildId');
+  location.href = '/contribute/login.html';
+};
+
+init();
+</script>
+</body>
+</html>
