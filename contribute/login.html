@@ -43,6 +43,8 @@
       width: 100%;
       padding: 2.5rem 2rem;
       text-align: center;
+      position: relative;
+      overflow: visible;
     }
 
     .logo {
@@ -193,7 +195,25 @@
 
     .hidden { display: none !important; }
 
+    .mascot-corner {
+      position: absolute;
+      top: -48px;
+      right: -16px;
+      width: 110px;
+      pointer-events: none;
+      user-select: none;
+      animation: mascot-bob 3s ease-in-out infinite;
+      z-index: 10;
+    }
+
+    @keyframes mascot-bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
     @media (max-width: 500px) {
+      .mascot-corner { width: 86px; top: -38px; right: -8px; }
+    }
       .card { padding: 2rem 1.25rem; border-radius: 1.5rem; }
       .code-wrap input { width: 42px; height: 50px; font-size: 1.25rem; }
       h1 { font-size: 1.35rem; }
@@ -203,9 +223,11 @@
 <body>
 
 <div class="card">
+  <img src="/mascot.png" alt="" class="mascot-corner">
+
   <!-- Step 1: Email -->
   <div id="email-state">
-    <img src="/lockup.png" alt="Land Far Away" class="logo">
+    <img src="/assets/brand/app-icon.png" alt="Land Far Away" class="logo">
     <h1>Welcome back!</h1>
     <p class="body-text">Enter your email to log in.</p>
 
@@ -217,7 +239,7 @@
 
   <!-- Step 2: Code -->
   <div id="code-state" class="hidden">
-    <img src="/lockup.png" alt="Land Far Away" class="logo">
+    <img src="/assets/brand/app-icon.png" alt="Land Far Away" class="logo">
     <h1>Check your email</h1>
     <p class="body-text">Enter the 6-digit code we sent to <strong id="display-email"></strong></p>
 
