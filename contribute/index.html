@@ -773,10 +773,20 @@
         const res = await fetch(`${API}/contributors/me/journey`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        if (!res.ok) {
+        if (res.status === 401 || res.status === 403) {
           localStorage.removeItem('contributorToken');
           localStorage.removeItem('contributorEmail');
           location.href = '/contribute/login.html';
+          return;
+        }
+        if (res.status === 404) {
+          location.href = '/contribute/dashboard.html';
+          return;
+        }
+        if (!res.ok) {
+          emptyState.querySelector('p').textContent = 'We had trouble loading your contributor journey just now.';
+          emptyState.querySelector('p + p').textContent = 'Please try again in a minute, or open Your uploads while we catch up.';
+          showState(emptyState);
           return;
         }
         const data = await res.json();
