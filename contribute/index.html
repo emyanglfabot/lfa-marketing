@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contributor Dashboard — Land Far Away</title>
+  <title>Contributor Journey — Land Far Away</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
       --teal: #6DCEC5;
@@ -20,221 +20,876 @@
       --white: #fff;
       --red: #E53E3E;
       --green: #38A169;
-      --card-bg: #ffffff;
-      --border: #e8e0d8;
+      --border: #E8E0D8;
+      --soft-teal: rgba(109, 206, 197, 0.14);
+      --soft-orange: rgba(232, 90, 43, 0.12);
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--charcoal); min-height: 100vh; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(245, 196, 66, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf7ee 0%, #f4efe2 100%);
+      color: var(--charcoal);
+      min-height: 100vh;
+    }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1rem;
+      background: rgba(245, 240, 225, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(58, 54, 50, 0.08);
+    }
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: var(--charcoal);
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+    .nav-brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .nav-link,
+    .btn-logout {
+      border: 0;
+      background: rgba(255,255,255,0.85);
+      color: var(--charcoal);
+      text-decoration: none;
+      font: inherit;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: 999px;
+      padding: 0.55rem 0.95rem;
+      box-shadow: 0 2px 10px rgba(58,54,50,0.08);
+      cursor: pointer;
+    }
+    .btn-logout { border: 1px solid rgba(58,54,50,0.08); }
 
-    /* ── Nav ─────────────────────────────────────── */
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; background: var(--white); border-bottom: 2px solid var(--teal); }
-    .nav-brand { display: flex; align-items: center; text-decoration: none; }
-    .nav-brand img { height: 40px; }
-    .nav-right { display: flex; align-items: center; gap: 1rem; }
-    .nav-user { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
-    .btn-logout { background: none; border: 1px solid var(--border); border-radius: 2rem; padding: 0.35rem 1rem; font-size: 0.8rem; cursor: pointer; color: var(--charcoal); font-family: inherit; font-weight: 600; transition: background 0.15s; }
-    .btn-logout:hover { background: var(--cream); }
+    .page {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 1.2rem 1rem 2.5rem;
+    }
+    .loading,
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 4rem 1.25rem;
+      line-height: 1.7;
+    }
+    .hidden { display: none !important; }
+    .loading .mascot,
+    .empty .mascot {
+      width: 82px;
+      margin-bottom: 1rem;
+      animation: mascot-bob 2.8s ease-in-out infinite;
+    }
+    @keyframes mascot-bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
 
-    /* ── Layout ──────────────────────────────────── */
-    .container { max-width: 800px; margin: 0 auto; padding: 1.5rem; }
-    h1 { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.5rem; color: var(--charcoal); margin-bottom: 1rem; }
-    h2 { font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 1.2rem; color: var(--charcoal); margin-bottom: 0.75rem; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(155deg, rgba(109,206,197,0.22), rgba(255,255,255,0.92));
+      border-radius: 30px;
+      padding: 1.4rem 1.25rem 1.35rem;
+      box-shadow: 0 12px 36px rgba(58,54,50,0.10);
+      margin-bottom: 1rem;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: rgba(232,90,43,0.12);
+      border-radius: 46% 54% 62% 38%;
+      top: -22px;
+      right: -40px;
+      transform: rotate(-12deg);
+    }
+    .hero-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 2rem;
+      line-height: 1.02;
+      margin-bottom: 0.45rem;
+    }
+    .hero p {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+    .mascot-badge {
+      width: 84px;
+      height: 84px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 8px 24px rgba(58,54,50,0.08);
+    }
+    .mascot-badge img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
 
-    /* ── Kid Tabs ────────────────────────────────── */
-    .kid-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-    .kid-tab { padding: 0.4rem 1rem; border-radius: 2rem; border: 2px solid var(--teal); background: var(--white); cursor: pointer; font-family: inherit; font-size: 0.9rem; font-weight: 600; color: var(--teal-dark); transition: all 0.15s; }
-    .kid-tab.active { background: var(--teal); color: var(--white); border-color: var(--teal); }
-    .kid-tab:hover:not(.active) { background: #e0f5f3; }
+    .progress-wrap {
+      margin-top: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--teal-dark);
+      margin-bottom: 0.5rem;
+    }
+    .progress-bar {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.75);
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--orange), var(--gold));
+      transition: width 0.3s ease;
+    }
 
-    /* ── Activity Cards ──────────────────────────── */
-    .activity-grid { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
-    .activity-card { display: flex; align-items: center; gap: 1.25rem; border-radius: 16px; padding: 1.25rem 1.5rem; text-decoration: none; transition: box-shadow 0.15s, transform 0.15s; cursor: pointer; }
-    .activity-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.1); transform: translateY(-2px); }
-    .activity-card--peekaboo { background: var(--teal); color: var(--white); }
-    .activity-card--gmgn { background: var(--cream); color: var(--charcoal); border: 2px solid var(--border); }
-    .activity-card--drawwithme { background: var(--orange); color: var(--white); }
-    .activity-icon-circle { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
-    .activity-card--gmgn .activity-icon-circle { background: rgba(0,0,0,0.06); }
-    .activity-icon-circle img { width: 64px; height: 64px; object-fit: contain; }
-    .activity-text { flex: 1; min-width: 0; }
-    .activity-name { font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 1.15rem; }
-    .activity-subtitle { font-size: 0.85rem; opacity: 0.85; margin-top: 0.15rem; }
-    .activity-card--gmgn .activity-subtitle { color: var(--muted); }
-    .activity-arrow { font-size: 0.9rem; font-weight: 700; opacity: 0.8; flex-shrink: 0; }
+    .step-card,
+    .summary-card,
+    .upload-card,
+    .celebration-card {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(58,54,50,0.08);
+      border-radius: 28px;
+      box-shadow: 0 12px 30px rgba(58,54,50,0.08);
+    }
 
-    /* ── Recent Uploads ──────────────────────────── */
-    .recent-list { display: flex; flex-direction: column; gap: 0.75rem; }
-    .recent-item { display: flex; align-items: center; gap: 1rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 0.75rem 1rem; }
-    .recent-thumb { width: 44px; height: 44px; border-radius: 8px; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; overflow: hidden; }
-    .recent-thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .recent-info { flex: 1; min-width: 0; }
-    .recent-game { font-weight: 700; font-size: 0.9rem; }
-    .recent-date { font-size: 0.78rem; color: var(--muted); }
-    .badge { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 10px; text-transform: uppercase; }
-    .badge-pending { background: #fef3cd; color: #856404; }
-    .badge-approved { background: #d4f5f0; color: #0d6e5e; }
-    .btn-delete { background: none; border: 1px solid var(--red); color: var(--red); border-radius: 2rem; padding: 0.3rem 0.7rem; font-size: 0.75rem; cursor: pointer; font-family: inherit; font-weight: 600; flex-shrink: 0; transition: all 0.15s; }
-    .btn-delete:hover { background: var(--red); color: var(--white); }
-    .empty-state { text-align: center; color: var(--muted); padding: 2rem; font-size: 0.95rem; }
+    .step-card {
+      padding: 1.15rem;
+      margin-bottom: 1rem;
+    }
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border-radius: 999px;
+      background: var(--soft-orange);
+      color: var(--orange-dark);
+      padding: 0.4rem 0.8rem;
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .step-card h2 {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 1.55rem;
+      line-height: 1.08;
+      margin-bottom: 0.4rem;
+    }
+    .step-card .supporting {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.98rem;
+      margin-bottom: 0.85rem;
+    }
+    .step-note {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      padding: 0.9rem 0.95rem;
+      background: var(--soft-teal);
+      border-radius: 18px;
+      color: var(--charcoal);
+      line-height: 1.55;
+      margin-bottom: 0.95rem;
+    }
+    .step-note img {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
 
-    .loading { text-align: center; padding: 3rem; color: var(--muted); }
+    .summary-card {
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .summary-card h3 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.2rem;
+      margin-bottom: 0.65rem;
+    }
+    .summary-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .summary-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      border-radius: 18px;
+      padding: 0.8rem 0.9rem;
+      background: rgba(245,240,225,0.72);
+    }
+    .summary-item.done {
+      background: rgba(109,206,197,0.16);
+    }
+    .summary-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.95);
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .summary-item.done .summary-icon {
+      color: var(--green);
+    }
+    .summary-copy strong {
+      display: block;
+      font-size: 0.98rem;
+      margin-bottom: 0.1rem;
+    }
+    .summary-copy span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
 
-    @media (max-width: 700px) {
-      .activity-card { padding: 1rem; gap: 1rem; }
-      .activity-icon-circle { width: 70px; height: 70px; }
-      .activity-icon-circle img { width: 48px; height: 48px; }
+    .upload-card {
+      padding: 1rem;
+      margin-bottom: 0.9rem;
+    }
+    .upload-card h3 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.15rem;
+      margin-bottom: 0.35rem;
+    }
+    .upload-card p {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.92rem;
+      margin-bottom: 0.85rem;
+    }
+    .upload-tips {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-bottom: 0.95rem;
+    }
+    .upload-tips li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      color: var(--charcoal);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .upload-tips li::before {
+      content: "✦";
+      color: var(--teal-dark);
+      font-weight: 800;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      width: 100%;
+      border-radius: 999px;
+      border: 0;
+      text-decoration: none;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+    }
+    .btn-primary {
+      padding: 0.95rem 1.2rem;
+      background: var(--orange);
+      color: var(--white);
+      box-shadow: 0 8px 18px rgba(232,90,43,0.28);
+    }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .btn-secondary {
+      padding: 0.8rem 1rem;
+      background: rgba(255,255,255,0.9);
+      color: var(--charcoal);
+      border: 1px solid rgba(58,54,50,0.10);
+    }
+
+    .progress-status {
+      display: none;
+      margin-top: 0.8rem;
+    }
+    .progress-status.active { display: block; }
+    .progress-bar-inline {
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: #eee;
+      margin-bottom: 0.55rem;
+    }
+    .progress-bar-inline .fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal), var(--teal-dark));
+      width: 0%;
+      transition: width 0.25s ease;
+    }
+    .status-copy {
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+    .status-copy.error { color: var(--red); }
+    .status-copy.success { color: var(--green); }
+
+    .celebration-card {
+      padding: 1.2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .celebration-card img {
+      width: 78px;
+      margin-bottom: 0.65rem;
+    }
+    .celebration-card h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.6rem;
+      margin-bottom: 0.45rem;
+    }
+    .celebration-card p {
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.55;
+      padding: 0 0.75rem;
+    }
+
+    input[type="file"] { display: none; }
+
+    @media (min-width: 740px) {
+      .page { padding-top: 1.5rem; }
+      .hero { padding: 1.65rem 1.5rem 1.45rem; }
+      .hero h1 { font-size: 2.35rem; }
     }
   </style>
 </head>
 <body>
   <nav class="nav">
-    <a class="nav-brand" href="/contribute/"><img src="/assets/brand/app-icon.png" alt="Land Far Away" style="height:44px;width:44px;border-radius:12px;" /></a>
-    <div class="nav-right">
-      <span class="nav-user" id="navUser"></span>
+    <a class="nav-brand" href="/contribute/" aria-label="Contributor journey home">
+      <img src="/assets/brand/app-icon.png" alt="Land Far Away" />
+      <span>Land Far Away</span>
+    </a>
+    <div class="nav-actions">
+      <a class="nav-link" href="/contribute/dashboard.html">Your uploads</a>
       <button class="btn-logout" id="btnLogout">Log out</button>
     </div>
   </nav>
 
-  <div class="container">
-    <h1>Contributor Dashboard</h1>
-
-    <p style="font-size:1.05rem;line-height:1.65;color:var(--muted);max-width:640px;margin-bottom:1.75rem;">
-      Welcome to Land Far Away! 🏰 You're here because you're a special person in a little one's life.
-      Each activity below is something you can contribute to — so even when you're far away,
-      you're still part of their everyday world.
-    </p>
-
-    <div class="kid-tabs" id="kidTabs"></div>
-
-    <h2>Activities</h2>
-    <div class="activity-grid">
-      <a class="activity-card activity-card--peekaboo" href="/contribute/peekaboo.html">
-        <div class="activity-icon-circle"><img src="/peekaboo_icon.png" alt="Peek-a-Boo" /></div>
-        <div class="activity-text">
-          <div class="activity-name">Peek-a-Boo</div>
-          <div class="activity-subtitle">Record a surprise peek-a-boo video</div>
-        </div>
-        <span class="activity-arrow">Open &rarr;</span>
-      </a>
-      <a class="activity-card activity-card--gmgn" href="/contribute/gmgn.html">
-        <div class="activity-icon-circle"><img src="/gmgn_icon.png" alt="Good Morning / Good Night" /></div>
-        <div class="activity-text">
-          <div class="activity-name">Good Morning / Good Night</div>
-          <div class="activity-subtitle">Send a cheerful greeting or bedtime message</div>
-        </div>
-        <span class="activity-arrow">Open &rarr;</span>
-      </a>
-      <a class="activity-card activity-card--drawwithme" href="/contribute/drawwithme.html">
-        <div class="activity-icon-circle"><img src="/drawwithme_icon.png" alt="Draw With Me" /></div>
-        <div class="activity-text">
-          <div class="activity-name">Draw With Me</div>
-          <div class="activity-subtitle">Share artwork for the little one to draw alongside</div>
-        </div>
-        <span class="activity-arrow">Open &rarr;</span>
-      </a>
+  <main class="page" id="pageRoot">
+    <div class="loading" id="loadingState">
+      <img src="/mascot.png" alt="" class="mascot" aria-hidden="true">
+      <p>Getting the next special moment ready…</p>
     </div>
 
-    <h2>Recently Uploaded</h2>
-    <div id="recentList" class="recent-list">
-      <div class="loading">Loading…</div>
+    <div class="empty hidden" id="emptyState">
+      <img src="/mascot.png" alt="" class="mascot" aria-hidden="true">
+      <p>We couldn't find any children attached to this contributor account yet.</p>
+      <p style="margin-top:0.5rem;">If you just accepted an invite, give it a minute and try again from the invite link.</p>
     </div>
-  </div>
 
-<script>
-const API = 'https://api.landfaraway.co';
-const token = localStorage.getItem('contributorToken');
-if (!token) { location.href = '/contribute/login.html'; }
+    <div class="hidden" id="journeyState">
+      <section class="hero">
+        <div class="hero-top">
+          <div>
+            <h1 id="heroTitle">Let's make someone smile</h1>
+            <p id="heroBody">We'll walk you through one easy step at a time.</p>
+          </div>
+          <div class="mascot-badge">
+            <img src="/mascot.png" alt="" aria-hidden="true">
+          </div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-meta">
+            <span id="progressLabel">Step 1</span>
+            <span id="progressChildLabel">For Maya</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+      </section>
 
-const headers = { Authorization: `Bearer ${token}` };
-let children = [];
-let activeChildId = localStorage.getItem('activeChildId');
+      <section class="step-card" id="stepCard">
+        <div class="step-badge" id="stepBadge">First surprise</div>
+        <h2 id="stepTitle">Start with a Peek a Boo hello</h2>
+        <p class="supporting" id="stepBody"></p>
+        <div class="step-note">
+          <img src="/mascot.png" alt="" aria-hidden="true">
+          <p id="stepNote">A quick recording is perfect. The goal is simply to feel familiar and loving.</p>
+        </div>
+      </section>
 
-const gameLabels = { peekaboo: '🫣 Peek-a-Boo', gmgn: '🌅 GM/GN', drawwithme: '🎨 Draw With Me' };
-const gameEmojis = { peekaboo: '🫣', gmgn: '🌅', drawwithme: '🎨' };
+      <section class="summary-card">
+        <h3 id="summaryTitle">Maya's first round</h3>
+        <div class="summary-list" id="summaryList"></div>
+      </section>
 
-async function init() {
-  try {
-    const res = await fetch(`${API}/contributors/me`, { headers });
-    if (!res.ok) { localStorage.removeItem('contributorToken'); location.href = '/contribute/login.html'; return; }
-    const data = await res.json();
-    document.getElementById('navUser').textContent = data.contributor.name || data.contributor.email;
-    children = data.children || [];
-    if (children.length && (!activeChildId || !children.find(c => c.id === activeChildId))) {
-      activeChildId = children[0].id;
-      localStorage.setItem('activeChildId', activeChildId);
+      <section class="upload-card">
+        <h3 id="uploadTitle">Record a surprise for Maya</h3>
+        <p id="uploadBody">Choose the easiest thing to do right now. We'll save your place automatically.</p>
+        <ul class="upload-tips" id="tipsList"></ul>
+        <div class="cta-row">
+          <button class="btn-primary" id="primaryButton">Choose from device</button>
+          <a class="btn-secondary" href="/contribute/dashboard.html">Manage uploads instead</a>
+        </div>
+        <div class="progress-status" id="uploadProgress">
+          <div class="progress-bar-inline"><div class="fill" id="uploadProgressFill"></div></div>
+          <div class="status-copy" id="statusCopy"></div>
+        </div>
+      </section>
+
+      <p class="footer-note" id="footerNote">If you need to step away, we'll bring you right back to the next thing next time.</p>
+    </div>
+
+    <div class="hidden" id="completeState">
+      <section class="celebration-card">
+        <img src="/mascot.png" alt="" aria-hidden="true">
+        <h2>You're all set!</h2>
+        <p id="completeBody">You've created a sweet first set of moments. You can always come back to add more whenever you feel like it.</p>
+        <div class="cta-row">
+          <a class="btn-primary" href="/contribute/dashboard.html">See all uploads</a>
+          <button class="btn-secondary" id="restartJourneyButton">Start again from the first child</button>
+        </div>
+      </section>
+    </div>
+
+    <input type="file" id="singleVideoInput" accept="video/*">
+    <input type="file" id="singleImageInput" accept="image/*">
+    <input type="file" id="multiImageInput" accept="image/*" multiple>
+  </main>
+
+  <script>
+    const API = 'https://api.landfaraway.co';
+    const token = localStorage.getItem('contributorToken');
+    const welcomeMode = new URLSearchParams(window.location.search).get('welcome');
+    if (!token) {
+      location.href = '/contribute/login.html';
     }
-    renderKidTabs();
-    loadRecent();
-  } catch (e) { console.error(e); }
-}
 
-function renderKidTabs() {
-  const el = document.getElementById('kidTabs');
-  el.innerHTML = '';
-  if (children.length === 0) return;
-  if (children.length === 1) {
-    el.innerHTML = '<span style="font-family:\'Baloo 2\',cursive;font-weight:700;font-size:1rem;color:var(--teal-dark);background:var(--white);border:2px solid var(--teal);border-radius:2rem;padding:0.35rem 1rem;">👤 ' + children[0].name + '</span>';
-    return;
-  }
-  children.forEach(c => {
-    const btn = document.createElement('button');
-    btn.className = 'kid-tab' + (c.id === activeChildId ? ' active' : '');
-    btn.textContent = c.name;
-    btn.onclick = () => { activeChildId = c.id; localStorage.setItem('activeChildId', c.id); renderKidTabs(); loadRecent(); };
-    el.appendChild(btn);
-  });
-}
+    const STEP_META = {
+      'peekaboo': {
+        badge: 'First surprise',
+        title: (name) => `Start with a Peek a Boo hello for ${name}`,
+        body: (name) => `${name} will see a familiar face pop up like a little surprise. A short, playful video is perfect.`,
+        note: (name) => `Try hiding your face for a second, then popping into view with a big smile or a cheerful “Peek a Boo, ${name}!”`,
+        uploadTitle: (name) => `Record ${name}'s Peek a Boo`,
+        uploadBody: () => `Use any short video you already have, or record a quick new one right now.`,
+        buttonLabel: 'Upload Peek a Boo video',
+        input: 'singleVideoInput',
+        gameSlug: 'peekaboo',
+        displayName: null,
+        tips: [
+          'Keep it under 15 seconds.',
+          'Portrait video works best on phones.',
+          'A smile and a playful reveal are enough.'
+        ]
+      },
+      'gmgn-morning': {
+        badge: 'Morning hello',
+        title: (name) => `Leave ${name} a good morning hello`,
+        body: (name) => `A quick “Good morning, ${name}!” can become part of the sweetest part of the day.`,
+        note: () => `Warm, simple, and short is best. This is all about your voice and face feeling familiar.`,
+        uploadTitle: (name) => `Upload a good morning message for ${name}`,
+        uploadBody: () => `A few cheerful seconds goes a long way.`,
+        buttonLabel: 'Upload good morning video',
+        input: 'singleVideoInput',
+        gameSlug: 'gmgn',
+        displayName: 'Good Morning',
+        tips: [
+          'Say their name if you’d like.',
+          'A wave or a silly smile makes it extra fun.',
+          'Keep it under 20 seconds.'
+        ]
+      },
+      'gmgn-night': {
+        badge: 'Bedtime moment',
+        title: (name) => `Now add a good night message for ${name}`,
+        body: (name) => `This one can feel especially special at bedtime — just a calm hello and a few loving words.`,
+        note: () => `You don’t need anything polished. Gentle and familiar is the whole point.`,
+        uploadTitle: (name) => `Upload a good night message for ${name}`,
+        uploadBody: () => `A soft “Good night” can become part of bedtime.`,
+        buttonLabel: 'Upload good night video',
+        input: 'singleVideoInput',
+        gameSlug: 'gmgn',
+        displayName: 'Good Night',
+        tips: [
+          'A calm voice is perfect.',
+          'Keep it short and sweet.',
+          'A wave, a kiss, or “sweet dreams” is plenty.'
+        ]
+      },
+      'drawwithme': {
+        badge: 'Coloring time',
+        title: (name, step) => `Pick ${step.remainingDrawWithMeImages || 3} favorite photos for ${name}`,
+        body: (name) => `${name} can turn familiar faces into coloring sheets. Grandparents, cousins, siblings, and favorite smiles all work beautifully.`,
+        note: () => `Choose bright, clear photos with faces or people your child loves. We’ll turn them into simple coloring pages.`,
+        uploadTitle: (name) => `Choose photos ${name} would love to color`,
+        uploadBody: (name, step) => `You can add ${step.remainingDrawWithMeImages || 3} more right now.`,
+        buttonLabel: (step) => `Choose ${step.remainingDrawWithMeImages || 3} photo${(step.remainingDrawWithMeImages || 3) === 1 ? '' : 's'}`,
+        input: 'multiImageInput',
+        gameSlug: 'drawwithme',
+        displayName: 'Draw With Me Favorite',
+        tips: [
+          'Bright, clear photos work best.',
+          'People and faces are especially fun to color.',
+          'Pick up to 3 in one go if you want.'
+        ]
+      }
+    };
 
-async function loadRecent() {
-  const el = document.getElementById('recentList');
-  if (!activeChildId) { el.innerHTML = '<div class="empty-state">No children found.</div>'; return; }
-  el.innerHTML = '<div class="loading">Loading…</div>';
-  try {
-    const res = await fetch(`${API}/contributors/me/media`, { headers });
-    if (!res.ok) throw new Error('Failed to load');
-    const data = await res.json();
-    const items = (data.media || []).filter(m => m.childId === activeChildId);
-    if (!items.length) { el.innerHTML = '<div class="empty-state">Nothing uploaded yet.</div>'; return; }
-    el.innerHTML = '';
-    items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    items.forEach(m => {
-      const div = document.createElement('div');
-      div.className = 'recent-item';
-      const statusClass = m.status === 'APPROVED' ? 'badge-approved' : 'badge-pending';
-      const statusLabel = m.status === 'APPROVED' ? 'Approved' : 'Pending';
-      const emoji = gameEmojis[m.gameSlug] || '📁';
-      const gameName = gameLabels[m.gameSlug] || m.gameSlug;
-      const date = new Date(m.createdAt).toLocaleDateString();
-      div.innerHTML = `
-        <div class="recent-thumb">${m.thumbnailUrl ? `<img src="${m.thumbnailUrl}" alt="">` : emoji}</div>
-        <div class="recent-info">
-          <div class="recent-game">${gameName} <span class="badge ${statusClass}">${statusLabel}</span></div>
-          <div class="recent-date">${date}</div>
-        </div>
-        <button class="btn-delete" data-id="${m.id}">Delete</button>
-      `;
-      div.querySelector('.btn-delete').onclick = () => deleteMedia(m.id, div);
-      el.appendChild(div);
+    const loadingState = document.getElementById('loadingState');
+    const emptyState = document.getElementById('emptyState');
+    const journeyState = document.getElementById('journeyState');
+    const completeState = document.getElementById('completeState');
+    const heroTitle = document.getElementById('heroTitle');
+    const heroBody = document.getElementById('heroBody');
+    const progressLabel = document.getElementById('progressLabel');
+    const progressChildLabel = document.getElementById('progressChildLabel');
+    const progressFill = document.getElementById('progressFill');
+    const stepBadge = document.getElementById('stepBadge');
+    const stepTitle = document.getElementById('stepTitle');
+    const stepBody = document.getElementById('stepBody');
+    const stepNote = document.getElementById('stepNote');
+    const summaryTitle = document.getElementById('summaryTitle');
+    const summaryList = document.getElementById('summaryList');
+    const uploadTitle = document.getElementById('uploadTitle');
+    const uploadBody = document.getElementById('uploadBody');
+    const tipsList = document.getElementById('tipsList');
+    const primaryButton = document.getElementById('primaryButton');
+    const uploadProgress = document.getElementById('uploadProgress');
+    const uploadProgressFill = document.getElementById('uploadProgressFill');
+    const statusCopy = document.getElementById('statusCopy');
+    const footerNote = document.getElementById('footerNote');
+    const completeBody = document.getElementById('completeBody');
+    const btnLogout = document.getElementById('btnLogout');
+    const singleVideoInput = document.getElementById('singleVideoInput');
+    const singleImageInput = document.getElementById('singleImageInput');
+    const multiImageInput = document.getElementById('multiImageInput');
+    const restartJourneyButton = document.getElementById('restartJourneyButton');
+
+    let currentJourney = null;
+    let currentContributor = null;
+
+    function showState(el) {
+      [loadingState, emptyState, journeyState, completeState].forEach((node) => node.classList.add('hidden'));
+      el.classList.remove('hidden');
+    }
+
+    function status(message, type = '') {
+      uploadProgress.classList.add('active');
+      statusCopy.textContent = message;
+      statusCopy.className = `status-copy${type ? ` ${type}` : ''}`;
+    }
+
+    function clearStatus() {
+      uploadProgress.classList.remove('active');
+      uploadProgressFill.style.width = '0%';
+      statusCopy.textContent = '';
+      statusCopy.className = 'status-copy';
+    }
+
+    function renderSummary(child) {
+      const steps = [
+        {
+          done: child.progress.peekABooDone,
+          title: 'Peek a Boo surprise',
+          subtitle: 'A familiar face pops up to make them smile.'
+        },
+        {
+          done: child.progress.goodMorningDone,
+          title: 'Good morning hello',
+          subtitle: 'A cheerful message for the start of the day.'
+        },
+        {
+          done: child.progress.goodNightDone,
+          title: 'Good night message',
+          subtitle: 'A sweet bedtime hello from someone they love.'
+        },
+        {
+          done: child.progress.drawWithMeCount >= 3,
+          title: '3 coloring photos',
+          subtitle: `${Math.min(child.progress.drawWithMeCount, 3)} of 3 favorite photos added.`
+        }
+      ];
+
+      summaryTitle.textContent = `${child.name}'s first round`;
+      summaryList.innerHTML = '';
+      steps.forEach((item) => {
+        const row = document.createElement('div');
+        row.className = `summary-item${item.done ? ' done' : ''}`;
+        row.innerHTML = `
+          <div class="summary-icon">${item.done ? '✓' : '•'}</div>
+          <div class="summary-copy">
+            <strong>${item.title}</strong>
+            <span>${item.subtitle}</span>
+          </div>
+        `;
+        summaryList.appendChild(row);
+      });
+    }
+
+    function renderJourney(contributor, journey) {
+      currentContributor = contributor;
+      currentJourney = journey;
+
+      if (!journey.children.length) {
+        showState(emptyState);
+        return;
+      }
+
+      if (journey.allComplete || !journey.nextStep) {
+        const firstName = contributor.name?.split(' ')[0] || 'there';
+        completeBody.textContent = `Beautiful work, ${firstName}. You've added a thoughtful first set of moments for every child on your list.`;
+        showState(completeState);
+        return;
+      }
+
+      const nextStep = journey.nextStep;
+      const child = journey.children.find((entry) => entry.id === nextStep.childId);
+      if (!child) {
+        showState(emptyState);
+        return;
+      }
+
+      const meta = STEP_META[nextStep.key];
+      const firstName = contributor.name?.split(' ')[0] || 'there';
+      const progressPct = Math.max(6, Math.round((journey.completedSteps / Math.max(journey.totalSteps, 1)) * 100));
+
+      heroTitle.textContent = `Hi ${firstName} — ${child.name} is ready for you`;
+      heroBody.textContent = welcomeMode === 'invite'
+        ? `You’re in the right place. We’ll guide you through a few easy uploads for ${child.name}, one special moment at a time.`
+        : welcomeMode === 'back'
+          ? `Welcome back. We saved your place and you can keep going whenever you’re ready.`
+        : nextStep.childIndex === 0
+        ? `We’ll guide you through a few easy uploads for ${child.name}, one loving little moment at a time.`
+        : `You already helped another child feel close to you. Now let's make a few sweet moments for ${child.name} too.`;
+      progressLabel.textContent = `Step ${nextStep.stepNumber} of ${nextStep.totalSteps}`;
+      progressChildLabel.textContent = `${journey.completedSteps} complete`;
+      progressFill.style.width = `${progressPct}%`;
+      stepBadge.textContent = meta.badge;
+      stepTitle.textContent = typeof meta.title === 'function' ? meta.title(child.name, nextStep) : meta.title;
+      stepBody.textContent = meta.body(child.name, nextStep);
+      stepNote.textContent = meta.note(child.name, nextStep);
+      uploadTitle.textContent = meta.uploadTitle(child.name, nextStep);
+      uploadBody.textContent = meta.uploadBody(child.name, nextStep);
+      footerNote.textContent = nextStep.childIndex < journey.children.length - 1
+        ? `Once ${child.name}'s first round is done, we’ll gently introduce ${journey.children[nextStep.childIndex + 1].name}.`
+        : `If you need to step away, we’ll remember exactly where to pick back up.`;
+
+      tipsList.innerHTML = '';
+      meta.tips.forEach((tip) => {
+        const li = document.createElement('li');
+        li.textContent = tip;
+        tipsList.appendChild(li);
+      });
+
+      renderSummary(child);
+      primaryButton.textContent = typeof meta.buttonLabel === 'function' ? meta.buttonLabel(nextStep) : meta.buttonLabel;
+      primaryButton.disabled = false;
+      primaryButton.onclick = () => {
+        clearStatus();
+        document.getElementById(meta.input).click();
+      };
+
+      showState(journeyState);
+    }
+
+    async function loadJourney() {
+      showState(loadingState);
+      clearStatus();
+      try {
+        const res = await fetch(`${API}/contributors/me/journey`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) {
+          localStorage.removeItem('contributorToken');
+          localStorage.removeItem('contributorEmail');
+          location.href = '/contribute/login.html';
+          return;
+        }
+        const data = await res.json();
+        renderJourney(data.contributor, data.journey);
+      } catch (error) {
+        emptyState.querySelector('p').textContent = 'We had trouble loading your contributor journey. Please try again in a minute.';
+        showState(emptyState);
+      }
+    }
+
+    async function uploadSingleFile(file, nextStep) {
+      const meta = STEP_META[nextStep.key];
+      const form = new FormData();
+      form.append('file', file);
+      form.append('gameSlug', meta.gameSlug);
+      if (meta.displayName) form.append('displayName', meta.displayName);
+
+      primaryButton.disabled = true;
+      status('Uploading your moment…');
+      uploadProgressFill.style.width = '0%';
+
+      try {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', `${API}/contributors/children/${nextStep.childId}/media`);
+        xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            uploadProgressFill.style.width = `${Math.round((event.loaded / event.total) * 100)}%`;
+          }
+        };
+        await new Promise((resolve, reject) => {
+          xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 300) resolve();
+            else reject(new Error(xhr.responseText || 'Upload failed'));
+          };
+          xhr.onerror = () => reject(new Error('Network error'));
+          xhr.send(form);
+        });
+        uploadProgressFill.style.width = '100%';
+        status('Saved! We’re getting the next special moment ready…', 'success');
+        setTimeout(loadJourney, 750);
+      } catch (error) {
+        primaryButton.disabled = false;
+        status('That upload did not go through. Please try again.', 'error');
+      }
+    }
+
+    async function uploadDrawWithMeFiles(files, nextStep) {
+      if (!files.length) return;
+      const allowedCount = Math.min(files.length, nextStep.remainingDrawWithMeImages || 3);
+      primaryButton.disabled = true;
+      status(`Uploading ${allowedCount} photo${allowedCount === 1 ? '' : 's'}…`);
+      uploadProgressFill.style.width = '0%';
+
+      try {
+        for (let index = 0; index < allowedCount; index += 1) {
+          const file = files[index];
+          const form = new FormData();
+          form.append('file', file);
+          form.append('gameSlug', 'drawwithme');
+          form.append('displayName', 'Draw With Me Favorite');
+          await fetch(`${API}/contributors/children/${nextStep.childId}/media`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}` },
+            body: form,
+          }).then(async (res) => {
+            if (!res.ok) throw new Error(await res.text());
+          });
+          uploadProgressFill.style.width = `${Math.round(((index + 1) / allowedCount) * 100)}%`;
+        }
+        status('Perfect. Those favorites are on their way.', 'success');
+        setTimeout(loadJourney, 850);
+      } catch (error) {
+        primaryButton.disabled = false;
+        status('One of those photos did not upload. Please try again.', 'error');
+      }
+    }
+
+    singleVideoInput.addEventListener('change', (event) => {
+      const file = event.target.files?.[0];
+      if (file && currentJourney?.nextStep) {
+        uploadSingleFile(file, currentJourney.nextStep);
+      }
+      event.target.value = '';
     });
-  } catch (e) { el.innerHTML = '<div class="empty-state">Could not load uploads.</div>'; }
-}
 
-async function deleteMedia(id, el) {
-  if (!confirm('Delete this upload?')) return;
-  try {
-    const res = await fetch(`${API}/contributors/me/media/${id}`, { method: 'DELETE', headers });
-    if (res.ok) el.remove();
-    else alert('Failed to delete.');
-  } catch (e) { alert('Failed to delete.'); }
-}
+    singleImageInput.addEventListener('change', (event) => {
+      const file = event.target.files?.[0];
+      if (file && currentJourney?.nextStep) {
+        uploadSingleFile(file, currentJourney.nextStep);
+      }
+      event.target.value = '';
+    });
 
-document.getElementById('btnLogout').onclick = () => {
-  localStorage.removeItem('contributorToken');
-  localStorage.removeItem('activeChildId');
-  location.href = '/contribute/login.html';
-};
+    multiImageInput.addEventListener('change', (event) => {
+      const files = Array.from(event.target.files || []);
+      if (files.length && currentJourney?.nextStep) {
+        uploadDrawWithMeFiles(files, currentJourney.nextStep);
+      }
+      event.target.value = '';
+    });
 
-init();
-</script>
+    restartJourneyButton.addEventListener('click', () => {
+      loadJourney();
+    });
+
+    btnLogout.addEventListener('click', () => {
+      localStorage.removeItem('contributorToken');
+      localStorage.removeItem('contributorEmail');
+      location.href = '/contribute/login.html';
+    });
+
+    loadJourney();
+  </script>
 </body>
 </html>

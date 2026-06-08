@@ -229,7 +229,7 @@
   <div id="email-state">
     <img src="/assets/brand/app-icon.png" alt="Land Far Away" class="logo">
     <h1>Welcome back!</h1>
-    <p class="body-text">Enter your email to log in.</p>
+    <p class="body-text">Enter your email and we’ll bring you right back to the next special moment.</p>
 
     <div id="email-error" class="error-msg hidden"></div>
 
@@ -241,7 +241,7 @@
   <div id="code-state" class="hidden">
     <img src="/assets/brand/app-icon.png" alt="Land Far Away" class="logo">
     <h1>Check your email</h1>
-    <p class="body-text">Enter the 6-digit code we sent to <strong id="display-email"></strong></p>
+    <p class="body-text">Enter the 6-digit code we sent to <strong id="display-email"></strong> and we’ll pick up where you left off.</p>
 
     <div id="code-error" class="error-msg hidden"></div>
 
@@ -263,7 +263,7 @@
 (function() {
   const API = 'https://api.landfaraway.co';
 
-  // If already logged in, go to dashboard
+  // If already logged in, go to the contributor journey
   if (localStorage.getItem('contributorToken')) {
     window.location.href = '/contribute/';
     return;
@@ -399,7 +399,7 @@
       const data = await res.json();
       localStorage.setItem('contributorToken', data.token);
       localStorage.setItem('contributorEmail', data.email || userEmail);
-      window.location.href = '/contribute/';
+      window.location.href = '/contribute/?welcome=back';
     } catch (e) {
       codeError.textContent = 'Connection error — please try again';
       codeError.classList.remove('hidden');

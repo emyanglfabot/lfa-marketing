@@ -273,6 +273,8 @@
   const verifyEl = document.getElementById('verify-state');
   const errorEl = document.getElementById('error-state');
   const maskedEmailEl = document.getElementById('masked-email');
+  const verifyHeading = verifyEl.querySelector('h1');
+  const verifyBody = verifyEl.querySelector('.body-text');
   const codeWrap = document.getElementById('code-wrap');
   const inputs = codeWrap.querySelectorAll('input');
   const verifyBtn = document.getElementById('verify-btn');
@@ -320,6 +322,15 @@
 
       const data = await res.json();
       maskedEmailEl.textContent = data.email;
+      const inviteName = data.invite?.contributorName?.trim();
+      const firstChild = data.invite?.children?.[0]?.name?.trim();
+      if (inviteName && firstChild) {
+        verifyHeading.textContent = `${inviteName}, ${firstChild} is ready for you`;
+        verifyBody.innerHTML = `We sent a 6-digit code to <strong>${data.email}</strong>. Enter it below and we’ll guide you through a few easy little moments for ${firstChild}.`;
+      } else if (firstChild) {
+        verifyHeading.textContent = `${firstChild} is ready for you`;
+        verifyBody.innerHTML = `We sent a 6-digit code to <strong>${data.email}</strong>. Enter it below and we’ll guide you through a few easy little moments for ${firstChild}.`;
+      }
       show(verifyEl);
       inputs[0].focus();
     } catch (e) {
@@ -389,7 +400,7 @@
       const data = await res.json();
       localStorage.setItem('contributorToken', data.token);
       localStorage.setItem('contributorEmail', data.email || '');
-      window.location.href = '/contribute/';
+      window.location.href = '/contribute/?welcome=invite';
     } catch (e) {
       codeError.textContent = 'Connection error — please try again';
       codeError.classList.remove('hidden');
